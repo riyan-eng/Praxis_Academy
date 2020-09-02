@@ -1,0 +1,7 @@
+Delete an item:
+- Membuat url delete
+- Membuat fungsi delete di views
+	query untuk hapus
+	redirect ke halaman depan
+Mengganti tombol hapus menjadi anchor
+Mengurutkan kembali gunakan forloop.counter untuk mengganti d.id

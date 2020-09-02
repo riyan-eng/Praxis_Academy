@@ -1,0 +1,44 @@
+Database Management System => PostgreSQL
+
+SQL (Structure Query Language)
+- DDL (Data Definition Language)
+	- Create
+	- Alter
+	- Drop
+	- ...
+- DML (Data Manipulation Language)
+	- Insert
+	- Update
+	- Delete
+	- ...
+- DQL (Data Query Language)
+	- Select
+	- ...
+	
+How to
+sudo systemctl restart postgresql				: menjalankan server (optional)
+sudo service postgresql start					: menjalankan server (optional)
+sudo service postgresql stop					: menghentikan server (optional)
+psql								: membuka psql (optional)
+sudo -u postgres psql						: menjalankan PSQL
+create database contoh;						: membuat database
+\l								: melihat list database yang sudah dibuat
+\c								: mengconect-kan user dengan database
+\c contoh							: mengconect-kan user dengan database contoh
+\d								: melihat list tabel yang telah dibuat
+\d "nama tabel"							: melihat list kolom pada tabel
+create table "nama tabel"("kolom" tipe, "kolom" tipe);		: membuat kolom padatabel
+insert into "nama tabel"(kolom1, kolom2) values(isi1, isi2);	: memasukkan data pada tabel
+select * from "nama tabel";					: melihat data pada tabel
+q								: untuk keluar dari list
+
+klasifikasi ilmiah sayuran=# select * from sayuran;
+ id |      nama      |           nama ilmiah           | kingdom |     kelas     |      ordo      |     famili     |   genus    |       spesies       
+----+----------------+---------------------------------+---------+---------------+----------------+----------------+------------+---------------------
+  1 | bayam          |  Amaranthus caudatus            | Plantae | Magnoliopsida | Caryophyllales | Amaranthaceae  | Amaranthus | Amaranthus Hibridus
+  3 | Pare           | Momordica charantia Descourt    | Plantae | Magnoliopsida | Violales       | Cucurbitaceae  | Momordica  | M. charantia
+  4 | Kangkung       | Ipomoea aquatica Forsk          | Plantae | Angiosperms   | Solanales      | Convolvulaceae | Ipomoea    | Ipomoea aquatica
+  5 | Terong         | Solanum melongena               | Plantae | Magnoliopsida | Solanales      | Solanaceae     | Solanum    | S. Melongena
+  6 | Kacang Panjang | Vigna unguiculata sesquipedalis | Plantae | Magnoliopsida | Fabales        | Fabaceae       | Vigna      | V. Unguiculata
+(5 rows)
+

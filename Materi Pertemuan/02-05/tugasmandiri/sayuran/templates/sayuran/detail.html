@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Detail</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="container-sm p-3 my-3 bg-dark text-white">
+    <h1>{{data.name}}</h1>
+  </div>
+
+  <div class="container">
+
+      
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td class="font-weight-bolder">ID</td>
+            <td>{{data.id}}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td class="font-weight-bolder">Nama Binomial</td>
+            <td class="font-italic">{{data.binomial}}</td>
+          </tr>
+        </tbody>
+    
+      </table>
+
+      <h3 class="text-primary">Klasifikasi ilmiah</h1><br>
+
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <td class="font-weight-bold">Kingdom</td>
+                <td>{{data.kerajaan}}</td>
+              </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="font-weight-bold">Kelas</td>
+                    <td>{{data.kelas}}</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="font-weight-bold">Ordo</td>
+                    <td>{{data.ordo}}</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="font-weight-bold">Famili</td>
+                    <td>{{data.famili}}</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="font-weight-bold">Genus</td>
+                    <td>{{data.genus}}</td>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td class="font-weight-bold">Spesies</td>
+                    <td>{{data.spesies}}</td>
+                </tr>
+            </thead>
+   
+ 
+  </div>
+
+
+</body>
+</html>

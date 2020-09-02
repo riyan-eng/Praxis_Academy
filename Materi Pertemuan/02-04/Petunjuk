@@ -1,0 +1,8 @@
+Django edit form:
+1. Tambahkan path di urls
+2. Tambahkan fungsi edit di views
+	- memeriksa apakah ada pengiriman data
+	- kalau ada, melakukan edit
+	- kalau tidak, tampilkan form edit
+3. Template index mengaktifkan tombol edit dengan menggunakan anchor
+4. Buat template untuk edit
