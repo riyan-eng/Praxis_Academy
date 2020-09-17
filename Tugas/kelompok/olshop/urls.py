@@ -35,7 +35,6 @@ urlpatterns = [
     path('pembayaran_biaya/', views.pembayaran_biaya),
     path('pembayaran_lain/', views.pembayaran_lain),
     path('barang/', views.barang),
-    path('LR/', views.LR),
     path('admin/', admin.site.urls),
 
 
@@ -51,10 +50,13 @@ urlpatterns = [
     path('pembayaran_biayav/', views.pembayaran_biayav),
     path('pembayaran_lainv/', views.pembayaran_lainv),
     path('barangv/', views.barangv),
+    path('lr/', views.lr),
+
 
     #edit
     path('<id>/edit_p_tunai/',views.edit_p_tunai),
     path('<id>/edit_p_kredit/',views.edit_p_kredit),
+    path('<id>/edit_p_kredit_terima/',views.edit_p_kredit_terima), #terima pembayaran
     path('<id>/edit_p_lain/',views.edit_p_lain),
     path('<id>/edit_utang/',views.edit_utang),
     path('<id>/edit_pend_lain/',views.edit_pend_lain),
@@ -64,18 +66,18 @@ urlpatterns = [
     path('<id>/edit_pembayaran_biaya/',views.edit_pembayaran_biaya),
     path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
     path('<id>/edit_barang/',views.edit_barang),
-    path('<id>/edit_diterima/',views.edit_diterima),
+    path('<id>/edit_butang/',views.edit_butang),
 
     #Hapus
     path('<id>/hapus1/',views.hapus1),
     path('<id>/hapus2/',views.hapus2),
     path('<id>/hapus3/',views.hapus3),
     path('<id>/hapus4/',views.hapus4),
-    # path('<id>/edit_pend_lain/',views.edit_pend_lain),
-    # path('<id>/edit_pem_tunai/',views.edit_pem_tunai),
-    # path('<id>/edit_pem_kredit/',views.edit_pem_kredit),
-    # path('<id>/edit_pem_lain/',views.edit_pem_lain),
-    # path('<id>/edit_pembayaran_biaya/',views.edit_pembayaran_biaya),
+    path('<id>/hapus5/',views.hapus5),
+    path('<id>/hapus6/',views.hapus6),
+    path('<id>/hapus7/',views.hapus7),
+    path('<id>/hapus8/',views.hapus8),
+    path('<id>/hapus9/',views.hapus9),
     # path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
     # path('<id>/edit_barang/',views.edit_barang),
 ]

@@ -10,7 +10,7 @@ class penjualan1f(ModelForm):
 class penjualan2f(ModelForm):
     class Meta:
         model = models.penjualan2m
-        exclude = [ 'diterima' ]
+        exclude = [ 'terima' ]
 
 class penjualan3f(ModelForm):
     class Meta:
@@ -20,7 +20,7 @@ class penjualan3f(ModelForm):
 class utangf(ModelForm):
     class Meta:
         model = models.utangm
-        exclude = []
+        exclude = ['dibayar']
 
 class pend_lainf(ModelForm):
     class Meta:

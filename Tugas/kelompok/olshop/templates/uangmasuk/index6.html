@@ -23,7 +23,7 @@
                         <th></th>
                         <th></th>
                         <th>Saldo Piutang</th>
-                        <th>Rp 910.000</th>
+                        <th>Rp {{total_saldo}}</th>
                     </tr>
                 </tbody>
                 <tbody>
@@ -31,7 +31,7 @@
                         <th></th>
                         <th></th>
                         <th>Uang Diterima</th>
-                        <th>Rp {{diterima}}</th>
+                        <th>Rp {{total_terima}}</th>
                     </tr>
                 </tbody>
             </table>
@@ -54,14 +54,15 @@
                         <tr>
                             <td class="center">{{d.tanggal}}</td>
                             <td class="center">{{d.catatan}}</td>
-                            <td class="right">Rp {{d.total}}</td>
-                            <td class="center">Rp {{d.diterima}}</td>
-                            <td>Saldo</td>
+                            <td class="center">Rp {{d.total}}</td>
+                            <td class="center">Rp {{d.terima}}</td>
+                            <td class="center">Rp {{d.saldo}}</td>
                             <td class="right">
-                                <a class="waves-effect waves-light btn-small green" href="/{{d.id}}/edit_diterima">terima</a>
+                                <a class="waves-effect waves-light btn-small green" href="/{{d.id}}/edit_p_kredit_terima">terima</a>
                             </td>
                         </tr>
-                {% endfor %}
+                    {% endfor %}
+                </tbody>
             </table>
        </div>
 

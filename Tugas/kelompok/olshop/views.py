@@ -48,28 +48,40 @@ def penjualan_lain(req):
 
 def piutang(req):
     penjualan2 = models.penjualan2m.objects.all()
-    total = 0
+    penjualan3 = models.penjualan3m.objects.all()
+    total_saldo = 0
+    total_terima = 0   
+ 
     for p in penjualan2:
-      total += p.total()
+      total_saldo += p.saldo()
+      total_terima += p.terima
+
     return render(req, 'uangmasuk/index6.html', {
         'data': penjualan2,
-        'total': total,
+        'total_saldo': total_saldo,
+        'total_terima': total_terima,
     })
 
 def utang(req):
     utang = models.utangm.objects.all()
-    jumlah3 = 0
-    for a in utang:
-        jumlah3 += a.jumlah3()
+    jum_utang = 0
+    for i in utang:
+      jum_utang += i.jum_utang()
+
     return render(req, 'uangmasuk/index7.html', {
         'data': utang,
-        'jumlah3': jumlah3,
+        'jum_utang': jum_utang,
+        
     })
 
 def pend_lain(req):
     pend = models.pend_lainm.objects.all()
+    jum_pend = 0
+    for i in pend:
+      jum_pend += i.jum_pend()
     return render(req, 'uangmasuk/index8.html', {
         'data': pend,
+        'jum_pend': jum_pend,
     })
 
 def pembelian(req):
@@ -77,35 +89,80 @@ def pembelian(req):
 
 def pembelian_tunai(req):
     pem = models.pem_tunaim.objects.all()
+    jum_pem = 0
+    for i in pem:
+      jum_pem += i.jum_pem()
     return render(req, 'pembelian/index10.html', {
         'data': pem,
+        'jum_pem': jum_pem,
     })
     
 def pembelian_kredit(req):
     pem = models.pem_kreditm.objects.all()
+    jum_pem = 0
+    for i in pem:
+      jum_pem += i.jum_pem()
     return render(req, 'pembelian/index11.html', {
         'data': pem,
+        'jum_pem': jum_pem,
     })
 
 def pembelian_lain(req):
     pem = models.pem_lainm.objects.all()
+    jum_pem = 0
+    jum_pem1 = 0
+    for i in pem:
+      jum_pem += i.jum_pem()
+      jum_pem1 += i.jum_pem1()
     return render(req, 'pembelian/index12.html', {
         'data': pem,
+        'jum_pem': jum_pem,
+        'jum_pem1': jum_pem1,
     })
 
+
 def pembayaran_utang(req):
-    return render(req, 'uangkeluar/index13.html')
+    utang = models.utangm.objects.all()
+    jum_utang = 0
+    total_saldo = 0
+    total_dibayar = 0
+
+    for i in utang:
+      jum_utang += i.jum_utang()
+
+    for u in utang:
+        total_saldo += u.saldo()
+        total_dibayar += u.dibayar
+
+    return render(req, 'uangkeluar/index13.html', {
+        'data': utang,
+        'jum_utang': jum_utang,
+        'total_saldo': total_saldo,
+        'total_dibayar': total_dibayar,
+    })
 
 def pembayaran_biaya(req):
     bayar = models.pembayaran_biayam.objects.all()
+    jum_pem = 0
+    for i in bayar:
+      jum_pem += i.jum_pem()
+
     return render(req, 'uangkeluar/index14.html', {
         'data': bayar,
+        'jum_pem': jum_pem,
     })
 
 def pembayaran_lain(req):
     bayar = models.pembayaran_lainm.objects.all()
+    jum1 = 0
+    jum2 = 0
+    for i in bayar:
+        jum1 += i.jum1()
+        jum2 += i.jum2()
     return render(req, 'uangkeluar/index15.html', {
         'data': bayar,
+        'jum1': jum1,
+        'jum2': jum2,
     })
 
 def barang(req):
@@ -114,8 +171,9 @@ def barang(req):
         'data': bayar,
     })
 
-def LR(req):
+def lr(req):
     return render(req, 'keperluan/index16.html')
+
 
 
 
@@ -271,6 +329,16 @@ def edit_p_kredit(req, id):
         'data': penjualan,
     })
 
+def edit_p_kredit_terima(req, id):
+    if req.POST:
+        models.penjualan2m.objects.filter(pk=id).update(terima=req.POST['terima'])
+        return redirect('/piutang')
+
+    penjualan = models.penjualan2m.objects.filter(pk=id).first()
+    return render(req, 'uangmasuk/edit_piutang.html', {
+        'data': penjualan,
+    })
+
 def edit_p_lain(req, id):
     if req.POST:
         models.penjualan3m.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], kas=req.POST['kas'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
@@ -323,7 +391,7 @@ def edit_pem_kredit(req, id):
 
 def edit_pem_lain(req, id):
     if req.POST:
-        models.pem_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.pem_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], utang=req.POST['utang'], catatan=req.POST['catatan'])
         return redirect('/pembelian_lain')
 
     pem = models.pem_lainm.objects.filter(pk=id).first()
@@ -371,15 +439,16 @@ def edit_piutang(req, id):
         'data': penjualan,
     })
 
-def edit_diterima(req, id):
+def edit_butang(req, id):
     if req.POST:
-        models.penjualan2m.objects.filter(pk=id).update(diterima=req.POST['diterima'])
-        return redirect('/piutang')
+        models.utangm.objects.filter(pk=id).update(dibayar=req.POST['dibayar'])
+        return redirect('/pembayaran_utang')
 
-    penjualan = models.penjualan2m.objects.filter(pk=id).first()
-    return render(req, 'uangmasuk/edit_diterima.html', {
-        'data': penjualan,
+    utang = models.utangm.objects.filter(pk=id).first()
+    return render(req, 'uangkeluar/edit_butang.html', {
+        'data': utang,
     })
+
 
 
 
@@ -401,3 +470,23 @@ def hapus3(req, id):
 def hapus4(req, id):
     models.utangm.objects.filter(pk=id).delete()
     return redirect('/utang')
+
+def hapus5(req, id):
+    models.pem_tunaim.objects.filter(pk=id).delete()
+    return redirect('/pembelian_tunai')
+
+def hapus6(req, id):
+    models.pem_kreditm.objects.filter(pk=id).delete()
+    return redirect('/pembelian_kredit')
+
+def hapus7(req, id):
+    models.pem_lainm.objects.filter(pk=id).delete()
+    return redirect('/pembelian_lain')
+
+def hapus8(req, id):
+    models.pembayaran_biayam.objects.filter(pk=id).delete()
+    return redirect('/pembayaran_biaya')
+
+def hapus9(req, id):
+    models.pembayaran_lainm.objects.filter(pk=id).delete()
+    return redirect('/pembayaran_lain')
