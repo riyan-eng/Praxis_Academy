@@ -308,9 +308,16 @@ def lr(req):
     for p in bayar2:
         total10 += p.jum1()
 
+    sawal = models.penjualan1m.objects.all()
+    saldo1 = 0
+    for p in sawal:
+        saldo1 += p.saldo_awal
+
     total_semua1 = total1 + total2 + total3 + total4 + total5
     total_semua2 = total6 + total7 + total8 + total9 + total10
     laba_rugi = total_semua1 - total_semua2
+    akhir = saldo1 + laba_rugi
+    print(sawal)
 
     return render(req, 'keperluan/index16.html', {
         'penjualan1': penjualan1.first(),
@@ -327,6 +334,8 @@ def lr(req):
         'total_semua1': total_semua1,
         'total_semua2': total_semua2,
         'laba_rugi': laba_rugi,
+        'saldo': saldo1,
+        'akhir': akhir,
     })
 
 
