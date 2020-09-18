@@ -49,6 +49,9 @@ def penjualan_lain(req):
 def piutang(req):
     penjualan2 = models.penjualan2m.objects.all()
     penjualan3 = models.penjualan3m.objects.all()
+    pend = models.pend_lainm.objects.all()
+
+
     total_saldo = 0
     total_terima = 0   
  
@@ -56,11 +59,29 @@ def piutang(req):
       total_saldo += p.saldo()
       total_terima += p.terima
 
+    total_saldo1 = 0
+    total_terima1 = 0
+
+    for p in penjualan3:
+      total_saldo1 += p.saldo()
+      total_terima1 += p.terima
+
+    total_saldo2 = 0
+    total_terima2 = 0   
+ 
+    for p in pend:
+      total_saldo2 += p.saldo()
+      total_terima2 += p.terima
+
+    saldo_total1 = total_saldo + total_saldo1 + total_saldo2
+    saldo_total2 = total_terima + total_terima1 + total_terima2
     return render(req, 'uangmasuk/index6.html', {
         'data': penjualan2,
         'data1': penjualan3,
-        'total_saldo': total_saldo,
-        'total_terima': total_terima,
+        'data2': pend,
+        'saldo_total1': saldo_total1,
+        'saldo_total2': saldo_total2,
+        
     })
 
 def utang(req):
@@ -78,11 +99,14 @@ def utang(req):
 def pend_lain(req):
     pend = models.pend_lainm.objects.all()
     jum_pend = 0
+    jum_pend1 = 0
     for i in pend:
       jum_pend += i.jum_pend()
+      jum_pend1 += i.jum_pend1()
     return render(req, 'uangmasuk/index8.html', {
         'data': pend,
         'jum_pend': jum_pend,
+        'jum_pend1': jum_pend1,
     })
 
 def pembelian(req):
@@ -126,6 +150,7 @@ def pembayaran_utang(req):
     utang = models.utangm.objects.all()
     pem = models.pem_kreditm.objects.all()
     pem1 = models.pem_lainm.objects.all()
+
     jum_utang = 0
     total_saldo = 0
     total_dibayar = 0
@@ -137,13 +162,30 @@ def pembayaran_utang(req):
         total_saldo += u.saldo()
         total_dibayar += u.dibayar
 
+    total_saldo1 = 0
+    total_dibayar1 = 0
+
+    for u in pem:
+        total_saldo1 += u.saldo()
+        total_dibayar1 += u.dibayar1
+
+    total_saldo2 = 0
+    total_dibayar2 = 0
+
+    for u in pem1:
+        total_saldo2 += u.saldo()
+        total_dibayar2 += u.dibayar2
+
+    jumlah1 = total_saldo + total_saldo1 + total_saldo2
+    jumlah2 = total_dibayar + total_dibayar1 + total_dibayar2
+
     return render(req, 'uangkeluar/index13.html', {
         'data': utang,
         'data1': pem,
         'data2': pem1,
         'jum_utang': jum_utang,
-        'total_saldo': total_saldo,
-        'total_dibayar': total_dibayar,
+        'jumlah1': jumlah1,
+        'jumlah2': jumlah2,
     })
 
 def pembayaran_biaya(req):
@@ -188,10 +230,29 @@ def lr(req):
 
     penjualan3 = models.penjualan3m.objects.all()
     total2 = 0
-    total3 = 0  #koreksi
     for p in penjualan3:
       total2 += p.jumlah()
-      total3 += p.terima
+
+    penjualan2 = models.penjualan2m.objects.all()
+    penjualan3 = models.penjualan3m.objects.all()
+    pend = models.pend_lainm.objects.all()
+
+    total_terima = 0   
+ 
+    for p in penjualan2:
+      total_terima += p.terima
+
+    total_terima1 = 0
+
+    for p in penjualan3:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+ 
+    for p in pend:
+      total_terima2 += p.terima
+
+    total3 = total_terima + total_terima1 + total_terima2
 
     utang = models.utangm.objects.all()
     total4 = 0
@@ -215,6 +276,27 @@ def lr(req):
       total7 += p.jum_pem()
 
     # total8 pembayaran utang
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_lainm.objects.all()
+
+    total_dibayar = 0
+
+
+    for u in utang:
+        total_dibayar += u.dibayar
+
+    total_dibayar1 = 0
+
+    for u in pem:
+        total_dibayar1 += u.dibayar1
+
+    total_dibayar2 = 0
+
+    for u in pem1:
+        total_dibayar2 += u.dibayar2
+
+    total8 = total_dibayar + total_dibayar1 + total_dibayar2
 
     bayar = models.pembayaran_biayam.objects.all()
     total9 = 0
@@ -226,8 +308,12 @@ def lr(req):
     for p in bayar2:
         total10 += p.jum1()
 
+    total_semua1 = total1 + total2 + total3 + total4 + total5
+    total_semua2 = total6 + total7 + total8 + total9 + total10
+    laba_rugi = total_semua1 - total_semua2
 
     return render(req, 'keperluan/index16.html', {
+        'penjualan1': penjualan1.first(),
         'total1': total1,
         'total2': total2,
         'total3': total3,   #koreksi
@@ -235,9 +321,12 @@ def lr(req):
         'total5': total5,
         'total6': total6,
         'total7': total7,
-        # 'total8': total8,
+        'total8': total8,
         'total9': total9,
         'total10': total10,
+        'total_semua1': total_semua1,
+        'total_semua2': total_semua2,
+        'laba_rugi': laba_rugi,
     })
 
 
@@ -366,18 +455,6 @@ def barangv(req):
         'form': form_input,
     })
 
-def saldov(req):
-    form_input = forms.saldof()
-    if req.POST:
-        form_input = forms.saldof(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/lr')
-    return render(req, 'crud/saldo.html', {
-        'data': form_input,
-    })
-
-
 
 
 
@@ -425,6 +502,16 @@ def edit_p_kredit_terima1(req, id):
         'data1': penjualan,
     })
 
+def edit_pend_lain_terima(req, id):
+    if req.POST:
+        models.pend_lainm.objects.filter(pk=id).update(terima=req.POST['terima'])
+        return redirect('/piutang')
+
+    penjualan = models.pend_lainm.objects.filter(pk=id).first()
+    return render(req, 'uangmasuk/edit_terimalain.html', {
+        'data2': penjualan,
+    })
+
 def edit_p_lain(req, id):
     if req.POST:
         models.penjualan3m.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], kas=req.POST['kas'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
@@ -447,7 +534,7 @@ def edit_utang(req, id):
 
 def edit_pend_lain(req, id):
     if req.POST:
-        models.pend_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.pend_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
         return redirect('/pend_lain')
 
     pend = models.pend_lainm.objects.filter(pk=id).first()
@@ -555,15 +642,17 @@ def edit_butang2(req, id):
         'data': utang,
     })
 
-def edit_saldo(req, id):
+
+def edit_saldoawal(req, id):
     if req.POST:
-        models.saldom.objects.filter(pk=id).update(saldo_awal=req.POST['saldo_awal'])
+        models.penjualan1m.objects.filter(pk=id).update(saldo_awal=req.POST['saldo_awal'])
         return redirect('/lr')
 
-    saldo = models.saldom.objects.filter(pk=id).first()
-    return render(req, 'keperluan/saldo.html', {
-        'data': saldo,
+    penjualan = models.penjualan1m.objects.filter(pk=id).first()
+    return render(req, 'keperluan/edit_saldo.html', {
+        'data': penjualan,
     })
+
 
 # Hapus
 def hapus1(req, id):
