@@ -62,6 +62,18 @@
                             </td>
                         </tr>
                     {% endfor %}
+                    {% for d in data1 %}
+                        <tr>
+                            <td class="center">{{d.tanggal}}</td>
+                            <td class="center">{{d.catatan}}</td>
+                            <td class="center">Rp {{d.piutang}}</td>
+                            <td class="center">Rp {{d.terima}}</td>
+                            <td class="center">Rp {{d.saldo}}</td>
+                            <td class="right">
+                                <a class="waves-effect waves-light btn-small green" href="/{{d.id}}/edit_p_kredit_terima1">terima</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
        </div>

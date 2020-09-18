@@ -15,7 +15,7 @@ class penjualan2f(ModelForm):
 class penjualan3f(ModelForm):
     class Meta:
         model = models.penjualan3m
-        exclude = []
+        exclude = [ 'terima' ]
 
 class utangf(ModelForm):
     class Meta:
@@ -35,12 +35,12 @@ class pem_tunaif(ModelForm):
 class pem_kreditf(ModelForm):
     class Meta:
         model = models.pem_kreditm
-        exclude = []
+        exclude = [ 'dibayar1' ]
 
 class pem_lainf(ModelForm):
     class Meta:
         model = models.pem_lainm
-        exclude = []
+        exclude = [ 'dibayar2' ]
 
 class pembayaran_biayaf(ModelForm):
     class Meta:
@@ -55,4 +55,9 @@ class pembayaran_lainf(ModelForm):
 class barangf(ModelForm):
     class Meta:
         model = models.barangm
+        exclude = []
+
+class saldof(ModelForm):
+    class Meta:
+        model = models.saldom
         exclude = []
