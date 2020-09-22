@@ -177,8 +177,15 @@ def pembayaran_utang(req):
         total_saldo2 += u.saldo()
         total_dibayar2 += u.dibayar2
 
-    jumlah1 = total_saldo + total_saldo1 + total_saldo2
-    jumlah2 = total_dibayar + total_dibayar1 + total_dibayar2
+    total_saldo3 = 0
+    total_dibayar3 = 0
+
+    for u in bayar:
+        total_saldo3 += u.saldo()
+        total_dibayar3 += u.dibayar3
+
+    jumlah1 = total_saldo + total_saldo1 + total_saldo2 + total_saldo3
+    jumlah2 = total_dibayar + total_dibayar1 + total_dibayar2 + total_dibayar3
 
     return render(req, 'uangkeluar/index13.html', {
         'data': utang,
@@ -650,6 +657,16 @@ def edit_butang2(req, id):
 
     utang = models.pem_lainm.objects.filter(pk=id).first()
     return render(req, 'uangkeluar/edit_butang2.html', {
+        'data': utang,
+    })
+
+def edit_butang3(req, id):
+    if req.POST:
+        models.pembayaran_lainm.objects.filter(pk=id).update(dibayar3=req.POST['dibayar3'])
+        return redirect('/pembayaran_utang')
+
+    utang = models.pembayaran_lainm.objects.filter(pk=id).first()
+    return render(req, 'uangkeluar/edit_butang3.html', {
         'data': utang,
     })
 

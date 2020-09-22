@@ -15,6 +15,9 @@ class penjualan1m(models.Model):
     kuantitas = models.IntegerField(default=0)
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d-%m-%y")
+
     def total(self):
         return self.barang.harga_jual * self.kuantitas
 
@@ -145,12 +148,17 @@ class pembayaran_lainm(models.Model):
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)
     utang = models.DecimalField(max_digits=10, decimal_places=0)
     catatan = models.TextField(default="")
+    dibayar3 = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+
 
     def jum1(self):
         return self.dibayar
 
     def jum2(self):
         return self.utang
+
+    def saldo(self):
+        return self.utang - self.dibayar3
 
 
     
