@@ -145,7 +145,6 @@ class pembayaran_lainm(models.Model):
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)
     utang = models.DecimalField(max_digits=10, decimal_places=0)
     catatan = models.TextField(default="")
-    dibayar3 = models.DecimalField(max_digits=10, decimal_places=0)    
 
     def jum1(self):
         return self.dibayar

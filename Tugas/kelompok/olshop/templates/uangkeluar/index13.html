@@ -38,7 +38,7 @@
                 
         </div>
         <div class="container">
-            <table class="highlight responsive-table">
+            <table class="highlight">
                 <thead class="orange accent-2">
                 <tr>
                     <th class="center">Tanggal</th>
@@ -93,20 +93,6 @@
                     <td></td>
                     <td class="right">
                         <a class="waves-effect waves-light btn-small green" href="/{{d.id}}/edit_butang2">bayar</a>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% for d in data3 %}
-                <tr>
-                    <td class="center">01/01/2021</td>
-                    <td>{{d.catatan}}</td>
-                    <td>PrL-{{d.id}}</td>
-                    <td>Rp {{d.utang}}</td>
-                    <td>Rp {{d.dibayar3}}</td>
-                    <td>Rp {{d.saldo}}</td>
-                    <td></td>
-                    <td class="right">
-                        <a class="waves-effect waves-light btn-small green" href="/{{d.id}}/edit_butang3">bayar</a>
                     </td>
                 </tr>
                 {% endfor %}

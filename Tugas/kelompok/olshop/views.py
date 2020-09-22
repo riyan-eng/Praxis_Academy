@@ -653,16 +653,6 @@ def edit_butang2(req, id):
         'data': utang,
     })
 
-def edit_butang3(req, id):
-    if req.POST:
-        models.pembayaran_lainm.objects.filter(pk=id).update(dibayar3=req.POST['dibayar3'])
-        return redirect('/pembayaran_utang')
-
-    utangl = models.pembayaran_lainm.objects.filter(pk=id).first()
-    return render(req, 'uangkeluar/edit_butang3.html', {
-        'data': utangl,
-    })
-
 def edit_saldoawal(req, id):
     if req.POST:
         models.penjualan1m.objects.filter(pk=id).update(saldo_awal=req.POST['saldo_awal'])
