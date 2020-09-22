@@ -13,7 +13,6 @@ class penjualan1m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
-    catatan = models.TextField(default="")
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def total(self):
@@ -24,7 +23,7 @@ class penjualan2m(models.Model):
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
     catatan = models.TextField(default="")
-    terima = models.IntegerField(default=0)
+    terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def __str__(self):
         return self.terima
@@ -42,9 +41,9 @@ class penjualan3m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
     keterangan = models.CharField(max_length=200)
     kas = models.IntegerField(default=0)
-    piutang = models.IntegerField(default=0)
+    piutang = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     catatan = models.TextField(default="")
-    terima = models.IntegerField(default=0)
+    terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
 
     def jumlah(self):
@@ -58,9 +57,9 @@ class penjualan3m(models.Model):
 
 class utangm(models.Model):
     tanggal = models.DateField(auto_now_add=True)
-    keterangan = models.CharField(max_length=200)
+    catatan = models.CharField(max_length=200)
     jumlah = models.DecimalField(max_digits=10, decimal_places=0)
-    catatan = models.TextField(default="")
+    # catatan = models.TextField(default="")
     dibayar = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def jum_utang(self):
@@ -146,6 +145,7 @@ class pembayaran_lainm(models.Model):
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)
     utang = models.DecimalField(max_digits=10, decimal_places=0)
     catatan = models.TextField(default="")
+    dibayar3 = models.DecimalField(max_digits=10, decimal_places=0)    
 
     def jum1(self):
         return self.dibayar

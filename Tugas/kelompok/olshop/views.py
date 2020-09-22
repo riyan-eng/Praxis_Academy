@@ -150,6 +150,7 @@ def pembayaran_utang(req):
     utang = models.utangm.objects.all()
     pem = models.pem_kreditm.objects.all()
     pem1 = models.pem_lainm.objects.all()
+    bayar = models.pembayaran_lainm.objects.all()
 
     jum_utang = 0
     total_saldo = 0
@@ -183,6 +184,7 @@ def pembayaran_utang(req):
         'data': utang,
         'data1': pem,
         'data2': pem1,
+        'data3': bayar,
         'jum_utang': jum_utang,
         'jumlah1': jumlah1,
         'jumlah2': jumlah2,
@@ -651,6 +653,15 @@ def edit_butang2(req, id):
         'data': utang,
     })
 
+def edit_butang3(req, id):
+    if req.POST:
+        models.pembayaran_lainm.objects.filter(pk=id).update(dibayar3=req.POST['dibayar3'])
+        return redirect('/pembayaran_utang')
+
+    utangl = models.pembayaran_lainm.objects.filter(pk=id).first()
+    return render(req, 'uangkeluar/edit_butang3.html', {
+        'data': utangl,
+    })
 
 def edit_saldoawal(req, id):
     if req.POST:
