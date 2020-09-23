@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    
     'olshop',
     'crispy_forms',
 ]
@@ -85,7 +86,6 @@ DATABASES = {
         'USER': 'riyan',
         'PASSWORD': 'riyan',
         'HOST': 'localhost',
-        'PORT': '',
     }
 }
 
