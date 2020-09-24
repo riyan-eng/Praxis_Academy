@@ -220,8 +220,8 @@
                           <!-- Modal content-->
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h4 class="modal-title">Tambah penjualan tunai</h4>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <h4 class="modal-title">Tambah penjualan</h4>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
 
                             </div>
                             <div class="modal-body">
@@ -248,15 +248,15 @@
 
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Ubah</th>
                         <th class="center">Tanggal</th>
                         <th class="center">ID</th>
                         <th class="center">Barang</th>
                         <th class="center">Harga</th>
                         <th class="center">Kuantitas</th>
-                        <th class="center">Jumlah</th>
+                        <th class="center">Piutang</th>
                         <th class="center">Catatan</th>
-                        <th></th>
+                        <th>Hapus</th>
                     </tr>
                     </thead>
     
@@ -267,11 +267,11 @@
                                     <a class="btn-floating btn-small waves-effect waves-light green right" href="/{{d.id}}/edit_p_kredit"><i class="material-icons">edit</i></a>            
                                 </td>
                                 
-                                <td class="center">{{d.tanggal}}</td>
+                                <td class="center">{{d.tanggal1}}</td>
                                 <td class="center">PjK-{{d.id}}</td>
                                 <td class="center">{{d.barang}}</td>
                                 <td class="center">Rp {{d.barang.harga_jual}}</td>
-                                <td class="center">{{d.kuantitas}}</td>
+                                <td class="center">{{d.kuantitas}} pcs</td>
                                 <td class="right">Rp {{d.total}}</td>
                                 <td class="center">{{d.catatan}}</td>
                                 <td>
@@ -283,9 +283,9 @@
                 <thead class="blue lighten-3">
                     <tr>
                         <th></th>
+                        <th>Jumlah</th>
                         <th></th>
                         <th></th>
-                        <th>Piutang diterima</th>
                         <th></th>
                             <th></th>
                         <th class="right">Rp {{total}}</th>
