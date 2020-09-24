@@ -85,6 +85,8 @@ urlpatterns = [
     path('<id>/hapus7/',views.hapus7),
     path('<id>/hapus8/',views.hapus8),
     path('<id>/hapus9/',views.hapus9),
+    path('<id>/hapus10/',views.hapus10),
+    path('<id>/hapus11/',views.hapus11),
     # path('<id>/edit_pembayaran_lain/',views.edit_pembayaran_lain),
     # path('<id>/edit_barang/',views.edit_barang),
 ]

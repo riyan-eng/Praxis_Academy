@@ -936,3 +936,11 @@ def hapus8(req, id):
 def hapus9(req, id):
     models.pembayaran_lainm.objects.filter(pk=id).delete()
     return redirect('/pembayaran_lain')
+
+def hapus10(req, id):
+    models.pend_lainm.objects.filter(pk=id).delete()
+    return redirect('/pend_lain')
+
+def hapus11(req, id):
+    models.barangm.objects.filter(pk=id).delete()
+    return redirect('/barang')

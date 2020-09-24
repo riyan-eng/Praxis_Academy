@@ -91,7 +91,7 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/lr">Laporan Laba/Rugi</a>
+            <a class="collapse-item" href="/lr">Arus Kas</a>
             <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
             <a class="collapse-item" href="/barang">Daftar Barang Dijual</a>
             <a class="collapse-item" href="utilities-other.html">Daftar Pemberi Utang</a>
@@ -188,7 +188,7 @@
    <body>
     <div class="container">
         <div class="page-header" align="center">
-          <h2>PIUTANG</h2>      
+          <h2>UTANG</h2>      
         </div><br>
 
         <!-- <a class="btn-floating btn-small waves-effect waves-light red right"><i class="material-icons">delete_forever</i></a> -->
@@ -237,7 +237,7 @@
                     <tbody>
                         {% for d in data %}
                     <tr>
-                        <td class="center">01/01/2021</td>
+                        <td class="center">{{d.tanggal1}}</td>
                         <td>{{d.catatan}}</td>
                         <td>Utg-{{d.id}}</td>
                         <td>Rp {{d.jum_utang}}</td>
@@ -254,7 +254,7 @@
     
                     {% for d in data1 %}
                     <tr>
-                        <td class="center">01/01/2021</td>
+                        <td class="center">{{d.tanggal1}}</td>
                         <td>{{d.catatan}}</td>
                         <td>PbK-{{d.id}}</td>
                         <td>Rp {{d.jumlah}}</td>
@@ -270,7 +270,7 @@
                     {% endfor %}
                     {% for d in data2 %}
                     <tr>
-                        <td class="center">01/01/2021</td>
+                        <td class="center">{{d.tanggal1}}</td>
                         <td>{{d.catatan}}</td>
                         <td>PbL-{{d.id}}</td>
                         <td>Rp {{d.utang}}</td>
@@ -286,7 +286,7 @@
                     {% endfor %}
                     {% for d in data3 %}
                     <tr>
-                        <td class="center">01/01/2021</td>
+                        <td class="center">{{d.tanggal1}}</td>
                         <td>{{d.catatan}}</td>
                         <td>PbL-{{d.id}}</td>
                         <td>Rp {{d.utang}}</td>
@@ -307,6 +307,23 @@
                     </tbody>
             </table>
        </div>
+       <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-   </body>
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+</body>
+
 </html>

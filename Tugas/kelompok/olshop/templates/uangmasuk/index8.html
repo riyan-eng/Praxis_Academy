@@ -91,7 +91,7 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/lr">Laporan Laba/Rugi</a>
+            <a class="collapse-item" href="/lr">Arus Kas</a>
             <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
             <a class="collapse-item" href="/barang">Daftar Barang Dijual</a>
             <a class="collapse-item" href="utilities-other.html">Daftar Pemberi Utang</a>
@@ -208,7 +208,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <a class="btn-floating btn-small waves-effect waves-light blue" data-toggle="modal" data-target="#myModal"><i class="material-icons">add</i></a>
+                            <a href="#" class="btn-floating btn-small waves-effect waves-light blue" data-toggle="modal" data-target="#myModal"><i class="material-icons">add</i></a>
                         </td>
                     </tr>
                     <div class="container">
@@ -247,14 +247,14 @@
 
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Ubah</th>
                         <th class="center">Tanggal</th>
                         <th class="center">ID</th>
                         <th>Keterangan</th>
                         <th>Kas</th>
                         <th>Piutang</th>
                         <th class="center">Catatan</th>
-                        <th></th>
+                        <th>Hapus</th>
                     </tr>
                     </thead>
     
@@ -264,14 +264,14 @@
                                 <td>
                                     <a class="btn-floating btn-small waves-effect waves-light green left" href="/{{d.id}}/edit_pend_lain"><i class="material-icons">edit</i></a>            
                                 </td>
-                                <td class="center">{{d.tanggal}}</td>
+                                <td class="center">{{d.tanggal1}}</td>
                                 <td class="center">PdL-{{d.id}}</td>
                                 <td>{{d.keterangan}}</td>
                                 <td>Rp {{d.jumlah}}</td>
                                 <td>Rp {{d.piutang}}</td>
                                 <td>{{d.catatan}}</td>
                                 <td>
-                                    <a class="btn-floating btn-small waves-effect waves-light red right"><i class="material-icons">delete_forever</i></a>
+                                    <a class="btn-floating btn-small waves-effect waves-light red right" href="/{{d.id}}/hapus10"><i class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -279,9 +279,9 @@
                     <thead class="blue lighten-3">
                         <tr>
                             <th></th>
+                            <th>Jumlah</th>
                             <th></th>
                             <th></th>
-                            <th>Uang diterima</th>
                             <th>Rp {{jum_pend}}</th>
                             <th>Rp {{jum_pend1}}</th>
                             <th></th>

@@ -91,6 +91,9 @@ class pend_lainm(models.Model):
     catatan = models.CharField(max_length=200)
     terima  = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
+
     def jum_pend(self):
         return self.jumlah
 
@@ -106,6 +109,9 @@ class pem_tunaim(models.Model):
     jumlah = models.DecimalField(max_digits=10, decimal_places=0)
     catatan = models.CharField(max_length=200)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
+
     def jum_pem(self):
         return self.jumlah
 
@@ -116,6 +122,8 @@ class pem_kreditm(models.Model):
     catatan = models.CharField(max_length=200)
     dibayar1 = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
 
     def jum_pem(self):
         return self.jumlah
@@ -131,6 +139,9 @@ class pem_lainm(models.Model):
     utang = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     catatan = models.CharField(max_length=200)
     dibayar2 = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
 
     def jum_pem(self):
         return self.dibayar
@@ -148,6 +159,9 @@ class pembayaran_biayam(models.Model):
     dibayar = models.DecimalField(max_digits=10, decimal_places=0)
     catatan = models.CharField(max_length=200)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
+
     def jum_pem(self):
         return self.dibayar
 
@@ -159,6 +173,8 @@ class pembayaran_lainm(models.Model):
     catatan = models.CharField(max_length=200)
     dibayar3 = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
+    def tanggal1(self):
+        return self.tanggal.strftime("%d/%m/%Y")
 
     def jum1(self):
         return self.dibayar
