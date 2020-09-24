@@ -25,7 +25,7 @@ class penjualan2m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
-    catatan = models.TextField(default="")
+    catatan = models.CharField(max_length=200)
     terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def __str__(self):
@@ -45,7 +45,7 @@ class penjualan3m(models.Model):
     keterangan = models.CharField(max_length=200)
     kas = models.IntegerField(default=0)
     piutang = models.DecimalField(default=0, max_digits=10, decimal_places=0)
-    catatan = models.TextField(default="")
+    catatan = models.CharField(max_length=200)
     terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
 
@@ -79,7 +79,7 @@ class pend_lainm(models.Model):
     keterangan = models.CharField(max_length=200)
     jumlah = models.DecimalField(max_digits=10, decimal_places=0)
     piutang = models.DecimalField(max_digits=10, decimal_places=0, default=0)
-    catatan = models.TextField(default="")
+    catatan = models.CharField(max_length=200)
     terima  = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
     def jum_pend(self):

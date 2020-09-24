@@ -29,6 +29,12 @@ def penjualan_tunai(req):
     })
 
 def penjualan_kredit(req):
+    form_input = forms.penjualan2f()
+    if req.POST:
+        form_input = forms.penjualan2f(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+        return redirect('/penjualan_kredit')        
     penjualan2 = models.penjualan2m.objects.all()
     total = 0
     for p in penjualan2:
@@ -36,9 +42,16 @@ def penjualan_kredit(req):
     return render(req, 'penjualan/index4.html', {
         'data': penjualan2,
         'total': total,
+        'form': form_input,
     })
 
 def penjualan_lain(req):
+    form_input = forms.penjualan3f()
+    if req.POST:
+        form_input = forms.penjualan3f(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+        return redirect('/penjualan_lain')
     penjualan3 = models.penjualan3m.objects.all()
     jumlah = 0
     jumlah2 = 0
@@ -51,7 +64,7 @@ def penjualan_lain(req):
         'data': penjualan3,
         'jumlah': jumlah,
         'jumlah2': jumlah2,
-
+        'form': form_input,
     })
 
 def piutang(req):
@@ -93,6 +106,12 @@ def piutang(req):
     })
 
 def utang(req):
+    form_input = forms.utangf()
+    if req.POST:
+        form_input = forms.utangf(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+        return redirect('/utang')
     utang = models.utangm.objects.all()
     jum_utang = 0
     for i in utang:
@@ -101,10 +120,16 @@ def utang(req):
     return render(req, 'uangmasuk/index7.html', {
         'data': utang,
         'jum_utang': jum_utang,
-        
+        'form': form_input,        
     })
 
 def pend_lain(req):
+    form_input = forms.pend_lainf()
+    if req.POST:
+        form_input = forms.pend_lainf(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+        return redirect('/pend_lain')
     pend = models.pend_lainm.objects.all()
     jum_pend = 0
     jum_pend1 = 0
@@ -115,6 +140,7 @@ def pend_lain(req):
         'data': pend,
         'jum_pend': jum_pend,
         'jum_pend1': jum_pend1,
+        'form': form_input,
     })
 
 def pembelian(req):
@@ -230,9 +256,16 @@ def pembayaran_lain(req):
     })
 
 def barang(req):
+    form_input = forms.barangf()
+    if req.POST:
+        form_input = forms.barangf(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+        return redirect('/barang')
     bayar = models.barangm.objects.all()
     return render(req, 'keperluan/index18.html', {
         'data': bayar,
+        'form': form_input,
     })
 
 def lr(req):
