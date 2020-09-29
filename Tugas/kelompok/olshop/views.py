@@ -5,6 +5,7 @@ from . import models
 
 
 def halamandepan(req):
+    sawal = models.saldoawalm.objects.all()
     penjualan1 = models.penjualan1m.objects.all()
     total1 = 0
     for p in penjualan1:
@@ -147,10 +148,12 @@ def halamandepan(req):
         'jumlah_utang':jumlah_utang,
         'jumlah_piutang': jumlah_piutang,
         'jumlah_keluar': jumlah_keluar,
+        'sawal':sawal,
     })
 
 def penjualan(req):
     return render(req, 'uangmasuk/index2.html')
+
 
 def penjualan_tunai(req):
     form_input = forms.penjualan1f()
@@ -159,7 +162,7 @@ def penjualan_tunai(req):
         if form_input.is_valid():
             form_input.save()
             return redirect('/penjualan_tunai')
-
+            
     penjualan1 = models.penjualan1m.objects.all()
     total = 0
     for p in penjualan1:
@@ -168,6 +171,16 @@ def penjualan_tunai(req):
         'data': penjualan1,
         'total': total,
         'form': form_input,
+    })
+    
+def edit_p_tunai(req, id):
+    if req.POST:
+        models.penjualan1m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'])
+        return redirect('/penjualan_tunai')
+
+    penjualan = models.penjualan1m.objects.filter(pk=id).first()
+    return render(req, 'penjualan/edit_p_tunai.html', {
+        'data': penjualan,
     })
 
 def penjualan_kredit(req):
@@ -304,6 +317,8 @@ def pembelian_tunai(req):
         'jum_pem': jum_pem,
         'form': form_input,
     })
+
+
     
 def pembelian_kredit(req):
     form_input = forms.pem_kreditf()
@@ -492,6 +507,8 @@ def lr(req):
     for p in pend:
       total5 += p.jum_pend()
 
+
+
 # uang keluar
     pem = models.pem_tunaim.objects.all()
     total6 = 0
@@ -571,6 +588,17 @@ def lr(req):
 
 
 #crud
+def saldo_awal(req):
+    form_input = forms.saldoawalf()
+    if req.POST:
+        form_input = forms.saldoawalf(req.POST)
+        if form_input.is_valid():
+            form_input.save()
+            return redirect('/')
+    return render(req, 'crud/barang.html', {
+        'form': form_input,
+    })
+
 def penjualan1v(req):
     form_input = forms.penjualan1f()
     if req.POST:
@@ -699,15 +727,7 @@ def barangv(req):
 
 
 #edit
-def edit_p_tunai(req, id):
-    if req.POST:
-        models.penjualan1m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'], catatan=req.POST['catatan'])
-        return redirect('/penjualan_tunai')
 
-    penjualan = models.penjualan1m.objects.filter(pk=id).first()
-    return render(req, 'penjualan/edit_p_tunai.html', {
-        'data': penjualan,
-    })
 
 def edit_p_kredit(req, id):
     if req.POST:
@@ -761,7 +781,7 @@ def edit_p_lain(req, id):
 
 def edit_utang(req, id):
     if req.POST:
-        models.utangm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.utangm.objects.filter(pk=id).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
         return redirect('/utang')
 
     utang = models.utangm.objects.filter(pk=id).first()
@@ -771,7 +791,7 @@ def edit_utang(req, id):
 
 def edit_pend_lain(req, id):
     if req.POST:
-        models.pend_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
+        models.pend_lainm.objects.filter(pk=id).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
         return redirect('/pend_lain')
 
     pend = models.pend_lainm.objects.filter(pk=id).first()
@@ -781,7 +801,7 @@ def edit_pend_lain(req, id):
 
 def edit_pem_tunai(req, id):
     if req.POST:
-        models.pem_tunaim.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.pem_tunaim.objects.filter(pk=id).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
         return redirect('/pembelian_tunai')
 
     pem = models.pem_tunaim.objects.filter(pk=id).first()
@@ -791,7 +811,7 @@ def edit_pem_tunai(req, id):
 
 def edit_pem_kredit(req, id):
     if req.POST:
-        models.pem_kreditm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.pem_kreditm.objects.filter(pk=id).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
         return redirect('/pembelian_kredit')
 
     pem = models.pem_kreditm.objects.filter(pk=id).first()
@@ -801,7 +821,7 @@ def edit_pem_kredit(req, id):
 
 def edit_pem_lain(req, id):
     if req.POST:
-        models.pem_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], utang=req.POST['utang'], catatan=req.POST['catatan'])
+        models.pem_lainm.objects.filter(pk=id).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
         return redirect('/pembelian_lain')
 
     pem = models.pem_lainm.objects.filter(pk=id).first()
@@ -811,7 +831,7 @@ def edit_pem_lain(req, id):
 
 def edit_pembayaran_biaya(req, id):
     if req.POST:
-        models.pembayaran_biayam.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
+        models.pembayaran_biayam.objects.filter(pk=id).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
         return redirect('/pembayaran_biaya')
 
     pem = models.pembayaran_biayam.objects.filter(pk=id).first()
@@ -821,7 +841,7 @@ def edit_pembayaran_biaya(req, id):
 
 def edit_pembayaran_lain(req, id):
     if req.POST:
-        models.pembayaran_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], utang=req.POST['utang'], dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
+        models.pembayaran_lainm.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
         return redirect('/pembayaran_lain')
 
     pem = models.pembayaran_lainm.objects.filter(pk=id).first()

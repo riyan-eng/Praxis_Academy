@@ -10116,6 +10116,19 @@ a:focus {
   font-family: 'Font Awesome 5 Free';
 }
 
+.sidebar {
+  position: fixed;
+  top: 0px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+  width: 250px;
+}
+
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after,
 .topbar .nav-item.dropdown.show .dropdown-toggle::after {
   content: '\f107';
@@ -10123,12 +10136,12 @@ a:focus {
 
 .sidebar .nav-item .nav-link,
 .topbar .nav-item .nav-link {
-  position: relative;
+  position: fixed;
 }
 
 .sidebar .nav-item .nav-link .badge-counter,
 .topbar .nav-item .nav-link .badge-counter {
-  position: absolute;
+  position: fixed;
   transform: scale(0.7);
   transform-origin: top right;
   right: .25rem;

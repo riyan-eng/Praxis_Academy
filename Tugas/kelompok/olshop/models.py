@@ -2,12 +2,14 @@ from django.db import models
 
 class barangm(models.Model):
     barang = models.CharField(max_length=200)
-    harga_beli = models.IntegerField(default=0)
-    harga_jual = models.IntegerField(default=0)
+    harga_beli = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+    harga_jual = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+    
     def __str__(self):
         return self.barang
 
-
+class saldoawalm(models.Model):
+    saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
 class penjualan1m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
