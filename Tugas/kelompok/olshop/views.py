@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum
+from bootstrap_datepicker_plus import DatePickerInput
 from . import forms
 from . import models
 
@@ -731,7 +732,7 @@ def barangv(req):
 
 def edit_p_kredit(req, id):
     if req.POST:
-        models.penjualan2m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'], catatan=req.POST['catatan'])
+        models.penjualan2m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'], catatan=req.POST['catatan'], jatuh_tempo=req.POST['jatuh_tempo'])
         return redirect('/penjualan_kredit')
 
     penjualan = models.penjualan2m.objects.filter(pk=id).first()

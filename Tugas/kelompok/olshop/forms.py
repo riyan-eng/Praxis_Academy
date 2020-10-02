@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-
+from bootstrap_datepicker_plus import DatePickerInput
 from . import models
 
 
@@ -17,7 +17,9 @@ class penjualan2f(ModelForm):
     class Meta:
         model = models.penjualan2m
         exclude = [ 'terima' ]
-
+        widgets = {
+            'jatuh_tempo': DatePickerInput(format='%d/%m/%Y'),
+        }
 class penjualan3f(ModelForm):
     class Meta:
         model = models.penjualan3m

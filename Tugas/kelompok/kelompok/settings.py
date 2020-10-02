@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    
+    'bootstrap_datepicker_plus',
     'olshop',
     'crispy_forms',
 ]
@@ -114,15 +114,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'id-in'
 
-DATE_INPUT_FORMATS = [
-    '%m/%d/%Y'
-]
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 TIME_ZONE = 'UTC'
 
+DATE_INPUT_FORMATS = ('%d-%m-%Y')
 USE_I18N = True
-
 USE_L10N = True
+
 
 USE_TZ = True
 

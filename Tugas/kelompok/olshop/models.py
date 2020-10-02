@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class barangm(models.Model):
     barang = models.CharField(max_length=200)
@@ -7,7 +8,7 @@ class barangm(models.Model):
     
     def __str__(self):
         return self.barang
-
+ 
 class saldoawalm(models.Model):
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
@@ -28,10 +29,14 @@ class penjualan2m(models.Model):
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
     catatan = models.CharField(max_length=200)
+    jatuh_tempo = models.DateField(default=datetime.now)
     terima = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def tanggal1(self):
         return self.tanggal.strftime("%d/%m/%Y")
+
+    def tanggal2(self):
+        return self.jatuh_tempo.strftime("%d/%m/%Y")
 
     def __str__(self):
         return self.terima

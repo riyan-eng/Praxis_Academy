@@ -24,12 +24,6 @@
   
 </head>
 
-<style>
-  .table{
-    overflow-x: auto;
-  }
-</style>
-
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -253,6 +247,7 @@
                         <th class="center">Kuantitas</th>
                         <th class="center">Piutang</th>
                         <th class="center">Catatan</th>
+                        <th class="center">Jatuh Tempo</th>
                         <th>Hapus</th>
                     </tr>
                     </thead>
@@ -306,7 +301,13 @@
                                                       <td>
                                                       <input type="text" name="catatan" value="{{d.catatan}}" class="form-control">
                                                       </td>
-                                                  </tr>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>jatuh Tempo</td>
+                                                      <td>
+                                                      <input type="date" name="jatuh_tempo" value="{{d.jatuh_tempo}}" class="form-control">
+                                                      </td>
+                                                    </tr>
                                                   </table>
                                               <br>
                                               <button class="btn btn-primary btn-xs">Update</button>
@@ -328,6 +329,8 @@
                                 <td class="center">{{d.kuantitas}} pcs</td>
                                 <td class="right">Rp {{d.total}}</td>
                                 <td class="center">{{d.catatan}}</td>
+                                <td class="center">{{d.tanggal2}}</td>
+                                
                                 <td>
                                     <a class="btn-floating btn-small waves-effect waves-light red right" href="/{{d.id}}/hapus2"><i class="material-icons">delete_forever</i></a>
                                 </td>
@@ -343,6 +346,7 @@
                         <th></th>
                             <th></th>
                         <th class="right">Rp {{total}}</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -374,5 +378,5 @@
   <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 
 </body>
-
+{{ form.media }}
 </html>

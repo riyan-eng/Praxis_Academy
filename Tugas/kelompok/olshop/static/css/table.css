@@ -8,6 +8,7 @@ table{
     overflow-x: auto;
     width: 100%;
     text-align: center;
+    font-size: small;
 }
 
 #td1{
@@ -38,3 +39,4 @@ th {
 .table{
   overflow-x: auto;
 }
+
