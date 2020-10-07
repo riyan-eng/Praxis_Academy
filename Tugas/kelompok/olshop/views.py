@@ -157,6 +157,7 @@ def penjualan(req):
 
 
 def penjualan_tunai(req):
+    print(req.GET)
     form_input = forms.penjualan1f()
     if req.POST:
         form_input = forms.penjualan1f(req.POST)
@@ -164,7 +165,11 @@ def penjualan_tunai(req):
             form_input.save()
             return redirect('/penjualan_tunai')
             
-    penjualan1 = models.penjualan1m.objects.all()
+    if req.GET and req.GET["dari"] and req.GET["sampai"]: 
+        penjualan1 = models.penjualan1m.objects.filter(tanggal__range=[req.GET["dari"], req.GET["sampai"]])
+
+    else:
+        penjualan1 = models.penjualan1m.objects.all()
     total = 0
     for p in penjualan1:
       total += p.total()
@@ -174,15 +179,7 @@ def penjualan_tunai(req):
         'form': form_input,
     })
     
-def edit_p_tunai(req, id):
-    if req.POST:
-        models.penjualan1m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'])
-        return redirect('/penjualan_tunai')
 
-    penjualan = models.penjualan1m.objects.filter(pk=id).first()
-    return render(req, 'penjualan/edit_p_tunai.html', {
-        'data': penjualan,
-    })
 
 def penjualan_kredit(req):
     form_input = forms.penjualan2f()
@@ -190,8 +187,14 @@ def penjualan_kredit(req):
         form_input = forms.penjualan2f(req.POST)
         if form_input.is_valid():
             form_input.save()
-        return redirect('/penjualan_kredit')        
-    penjualan2 = models.penjualan2m.objects.all()
+        return redirect('/penjualan_kredit')
+
+    if req.GET and req.GET["dari1"] and req.GET["sampai1"]: 
+        penjualan2 = models.penjualan2m.objects.filter(tanggal__range=[req.GET["dari1"], req.GET["sampai1"]])
+
+    else:
+        penjualan2 = models.penjualan2m.objects.all()      
+    
     total = 0
     for p in penjualan2:
       total += p.total()
@@ -208,7 +211,13 @@ def penjualan_lain(req):
         if form_input.is_valid():
             form_input.save()
         return redirect('/penjualan_lain')
-    penjualan3 = models.penjualan3m.objects.all()
+
+    if req.GET and req.GET["dari1"] and req.GET["sampai1"]: 
+        penjualan3 = models.penjualan3m.objects.filter(tanggal__range=[req.GET["dari1"], req.GET["sampai1"]])
+
+    else:
+        penjualan3 = models.penjualan3m.objects.all()  
+
     jumlah = 0
     jumlah2 = 0
     for j in penjualan3:
@@ -728,7 +737,15 @@ def barangv(req):
 
 
 #edit
+def edit_p_tunai(req, id):
+    if req.POST:
+        models.penjualan1m.objects.filter(pk=id).update(kuantitas=req.POST['kuantitas'], kas_masuk=req.POST['kas_masuk'])
+        return redirect('/penjualan_tunai')
 
+    penjualan = models.penjualan1m.objects.filter(pk=id).first()
+    return render(req, 'penjualan/edit_p_tunai.html', {
+        'data': penjualan,
+    })
 
 def edit_p_kredit(req, id):
     if req.POST:

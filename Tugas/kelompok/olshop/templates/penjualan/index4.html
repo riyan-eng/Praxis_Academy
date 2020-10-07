@@ -198,6 +198,15 @@
         </div>
         <div class="table"
         <div class="container">
+          <center>
+            <form action="">
+              Dari <input type="date" name="dari1" value="{{request.GET.dari1}}" >  
+              Sampai <input type="date" name="sampai1" value="{{request.GET.sampai1}}">
+              <button>Cari</button>
+              
+            </form>
+          </center>
+            
             <table class="highlight">
                 <thead>
                   <div class="container" style="align-items: right;">
@@ -212,7 +221,10 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h4 class="modal-title">Tambah penjualan</h4>
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                              <a href="/barang">
+                                <button type="button" class="btn btn-outline-primary">Tambah barang</button>
+                              </a>
+                              <a type="button" class="fa fa-times" aria-hidden="true" data-dismiss="modal"></a>
 
                             </div>
                             <div class="modal-body">

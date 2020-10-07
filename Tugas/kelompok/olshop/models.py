@@ -17,12 +17,16 @@ class penjualan1m(models.Model):
     barang = models.ForeignKey(barangm, on_delete = models.DO_NOTHING)
     kuantitas = models.IntegerField(default=0)
     saldo_awal = models.DecimalField(default=0, max_digits=10, decimal_places=0)
+    kas_masuk = models.DecimalField(default=0, max_digits=10, decimal_places=0)
 
     def tanggal1(self):
-        return self.tanggal.strftime("%d/%m/%Y")
+        return self.tanggal.strftime("%d-%m-%Y")
 
     def total(self):
         return self.barang.harga_jual * self.kuantitas
+
+    def piutang(self):
+        return self.total() - self.kas_masuk    
 
 class penjualan2m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
@@ -49,6 +53,13 @@ class penjualan2m(models.Model):
     
     def jumlah3(self):
         return self.saldo
+
+    def duda(self):
+        return self.jatuh_tempo - datetime.now().date()
+    
+    def dadu(self):
+        return self.duda().days
+
 
 class penjualan3m(models.Model):
     tanggal = models.DateField(auto_now_add=True)
