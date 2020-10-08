@@ -13,17 +13,6 @@ class saldoawalf(ModelForm):
         model = models.saldoawalm
         exclude = [ ]
 
-class penjualan2f(ModelForm):
-    class Meta:
-        model = models.penjualan2m
-        exclude = [ 'terima' ]
-        widgets = {
-            'jatuh_tempo': DatePickerInput(format='%d/%m/%Y'),
-        }
-class penjualan3f(ModelForm):
-    class Meta:
-        model = models.penjualan3m
-        exclude = [ 'terima' ]
 
 class utangf(ModelForm):
     class Meta:

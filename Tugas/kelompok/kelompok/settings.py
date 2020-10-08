@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'olshop',
     'crispy_forms',
+    'account',
 ]
 
 MIDDLEWARE = [

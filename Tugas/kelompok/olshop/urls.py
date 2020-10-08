@@ -22,8 +22,6 @@ urlpatterns = [
     path('', views.halamandepan),
     path('penjualan/', views.penjualan),
     path('penjualan_tunai/', views.penjualan_tunai),
-    path('penjualan_kredit/', views.penjualan_kredit),
-    path('penjualan_lain/', views.penjualan_lain),
     path('utang/', views.utang),
     path('piutang/', views.piutang),
     path('pend_lain/', views.pend_lain),
@@ -41,8 +39,6 @@ urlpatterns = [
 
     #crud
     path('penjualan1/', views.penjualan1v),
-    path('penjualan2/', views.penjualan2v),
-    path('penjualan3/', views.penjualan3v),
     path('utangv/', views.utangv),
     path('pend_lainv/', views.pend_lainv),
     path('pem_tunaiv/', views.pem_tunaiv),
