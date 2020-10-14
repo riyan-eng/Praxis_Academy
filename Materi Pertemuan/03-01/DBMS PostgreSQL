@@ -16,7 +16,7 @@ SQL (Structure Query Language)
 	- ...
 	
 How to
-sudo systemctl restart postgresql				: menjalankan server (optional)
+sudo systemctl start postgresql					: menjalankan server (optional)
 sudo service postgresql start					: menjalankan server (optional)
 sudo service postgresql stop					: menghentikan server (optional)
 psql								: membuka psql (optional)

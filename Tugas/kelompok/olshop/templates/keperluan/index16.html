@@ -88,10 +88,9 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/penjualan">Penjualan</a>
+            <a class="collapse-item" href="/penjualan_tunai">Penjualan</a>
             <a class="collapse-item" href="/piutang">Piutang</a>
             <a class="collapse-item" href="/utang">Utang</a>
-            <a class="collapse-item" href="/pend_lain">Pendapata Lain-Lain</a>
           </div>
         </div>
       </li>
@@ -104,10 +103,8 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/pembelian">Pembelian</a>
+            <a class="collapse-item" href="/pembelian_tunai">Pembelian</a>
             <a class="collapse-item" href="/pembayaran_utang">Pembayaran Utang</a>
-            <a class="collapse-item" href="/pembayaran_biaya">Pembayaran Biaya</a>
-            <a class="collapse-item" href="/pembayaran_lain">Pembayaran Lain-lain</a>
           </div>
         </div>
       </li>
@@ -223,126 +220,184 @@ tr:nth-child(even){background-color: #f2f2f2}
 
             <!-- <a class="btn-floating btn-small waves-effect waves-light red right"><i class="material-icons">delete_forever</i></a> -->
         </div>
-        <div class="table"></div>
-        <div class="container">
 
-          <table>
-            <thead>
-              <tr>
-                  <td id="th1">
-                    <a  href="/2/edit_saldoawal/" style="color:white">Saldo awal</a>
-                    
-                    </td>
-                  <td>Rp {{penjualan1.saldo_awal}}</td>
-              </tr>
-            </thead>
-            <thead>
-              <tr>
-                  <td id="th1">Menambah/mengurang Kas</td>
-                  <td>Rp {{laba_rugi}}</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                  <td id="th1">Saldo akhir</td>
-                  <td>Rp {{akhir}}</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                  <td></td>
-              </tr>
-            </tbody>
-          </table>
-            <table class="striped">
+            <div class="col-lg-12 mb-1">
+              <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                  <div class="text-white-50 small">
 
-              <tbody>
-                <tr>
-                  <th id="th1">UANG MASUK</th>
-                  <th id="th1"></th>
-                  <th id="th1"></th>
-                </tr>
-                <tr>
-                  <td>Penjualan tunai</td>
-                  <td>Rp {{total1}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Penjualan lain-lain</td>
-                  <td>Rp {{total2}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Piutang</td>
-                  <td>Rp {{total3}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Utang</td>
-                  <td>Rp {{total4}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Pendapatan lain-lain</td>
-                  <td>Rp {{total5}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td style="color:rgb(34, 179, 247)">Jumlah uang masuk</td>
-                  <td style="color:rgb(34, 179, 247)">Rp {{total_semua1}}</td>
-                </tr>
-                <tr>
-                  <th id="th1">UANG KELUAR</th>
-                  <th id="th1"></th>
-                  <th id="th1"></th>
-                </tr>
-                <tr>
-                  <td>Pembelian tunai</td>
-                  <td>Rp {{total6}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Pembelian lain-lain</td>
-                  <td>Rp {{total7}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Pembayaran utang</td>
-                  <td>Rp {{total8}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Pembayaran biaya</td>
-                  <td>Rp {{total9}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Pembayaran lain-lain</td>
-                  <td>Rp {{total10}}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td style="color:rgb(34, 179, 247)">Jumlah uang keluar</td>
-                  <td style="color:rgb(34, 179, 247)">Rp {{total_semua2}}</td>
-                </tr>
-                <tr class="teal lighten-4">
-                  <th id="th1">MENAMBAH/MENGURANG KAS</th>
-                  <th id="th1"></th>
-                  <th id="th2">Rp {{laba_rugi}}</th>
-                </tr>
+                    <thead>
+                      <tr>
+                          <td id="">
+                          <div class="" style="">
+                            <h5>
+                              <a href="#" class="" style="color: white;" data-toggle="modal" data-target="#myModal">Saldo Awal</a>
+                            </h5>
+                          </div>
+                            <div class="container">
+                              <!-- Modal -->
+                              <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Masukan Saldo Awal</h4>
+                                      <a type="button" class="fa fa-times" aria-hidden="true" data-dismiss="modal"></a>
+            
+                                    </div>
+                                    <div  class="modal-body">
+                                      <form action="" method="POST" class="mt-3">
+                                        {% csrf_token %}
+                                        <div class="col">
+                                        <input type="number" name="saldo_awal" value="{{data.saldo_awal}}"class="form-control" id="exampleInputPassword1" placeholder="Saldo Awal">
+                                    </div>
+                                        <br>
+                                        <button class="btn btn-primary btn-xs" >Tambah</button>
+                                      </form>
+                              
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>              
+                            <!-- <a  href="/2/edit_saldoawal/" style="color:white">Saldo awal</a> -->
+                            
+                            </td>
+                          <td>
+                            <h6>
+                              Rp {{data.saldo_awal}}
+                            </h6>
+                          </td>
+                      </tr>
+                    </thead>
 
-              </tbody>
-            </table>
-
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 mb-1">
+              <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                  <div class="text-white-50 small right"><h5 style="color: white;">Kas</h5>Rp {{total}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 mb-1">
+              <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                  <div class="text-white-50 small right"><h5 style="color: white;">Saldo Akhir</h5>Rp {{saldo}}</div>
+                </div>
+              </div>
+            </div>
        </div>
+       <div class="card-body">
+        <li class="list-group-item" style="background:mediumseagreen; color: rgb(255, 255, 255);">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col"><b>UANG MASUK</b></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col" style="color: black;"><b>Pendapatan</b> :</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-1 col-md-2 col"></div>
+            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk1}}</div>
+
+
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-1 col-md-2 col"></div>
+            <div class="col-lg-5 col-md-9 col" style="color: black;">Jasa</div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk2}}</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Piutang</b></div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk3}}</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Utang</b></div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_masuk4}}</div>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6 col-md-2 col"></div>
+            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-9 col">Rp {{jumlah1}}</div>
+          </div>
+        </li>
+      
+      </div>
+      <div class="card-body">
+        <li class="list-group-item"  style="background:mediumseagreen; color: rgb(255, 255, 255);">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col" ><b>UANG KELUAR</b></div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col"  style="color: black;"><b>Pembelian</b> :</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-1 col-md-2 col"></div>
+            <div class="col-lg-5 col-md-9 col"  style="color: black;">Umum</div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar1}}</div>
+
+
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-1 col-md-2 col"></div>
+            <div class="col-lg-5 col-md-9 col" style="color: black;">Barang</div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar2}}</div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6 col-md-3 col" style="color: black;"><b>Pembayaran Utang</b></div>
+            <div class="col-lg-6 col-md-9 col">Rp {{kas_keluar3}}</div>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-lg-6 col-md-2 col"></div>
+            <div class="col-lg-3 col-md-9 col" style="color: black;">Jumlah</div>
+            <div class="col-lg-3 col-md-9 col">Rp {{jumlah2}}</div>
+          </div>
+        </li>
+        <li class="list-group-item"  style="background:rgb(255, 68, 0); color: rgb(255, 255, 255);">
+          <div class="row">
+            <div class="col-lg-6 col-md-2 col"><b>KAS</b></div>
+            <div class="col-lg-3 col-md-9 col"></div>
+            <div class="col-lg-3 col-md-9 col">Rp {{total}}</div>
+          </div>
+        </li>
+      </div>
 
 
 
   	  <!-- End of Isine cuok-->
+    </div>
 
-
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

@@ -20,18 +20,11 @@ from . import views
 
 urlpatterns = [
     path('', views.halamandepan),
-    path('penjualan/', views.penjualan),
     path('penjualan_tunai/', views.penjualan_tunai),
     path('utang/', views.utang),
     path('piutang/', views.piutang),
-    path('pend_lain/', views.pend_lain),
-    path('pembelian/', views.pembelian),
     path('pembelian_tunai/', views.pembelian_tunai),
-    path('pembelian_kredit/', views.pembelian_kredit),
-    path('pembelian_lain/', views.pembelian_lain),
     path('pembayaran_utang/', views.pembayaran_utang),
-    path('pembayaran_biaya/', views.pembayaran_biaya),
-    path('pembayaran_lain/', views.pembayaran_lain),
     path('barang/', views.barang),
     path('lr/', views.lr),
     path('admin/', admin.site.urls),
@@ -44,8 +37,6 @@ urlpatterns = [
     path('pem_tunaiv/', views.pem_tunaiv),
     path('pem_kreditv/', views.pem_kreditv),
     path('pem_lainv/', views.pem_lainv),
-    path('pembayaran_biayav/', views.pembayaran_biayav),
-    path('pembayaran_lainv/', views.pembayaran_lainv),
     path('barangv/', views.barangv),
 
     #edit

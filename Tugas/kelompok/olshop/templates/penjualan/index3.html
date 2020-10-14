@@ -59,10 +59,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/penjualan">Penjualan</a>
+            <a class="collapse-item" href="/penjualan_tunai">Penjualan</a>
             <a class="collapse-item" href="/piutang">Piutang</a>
             <a class="collapse-item" href="/utang">Utang</a>
-            <a class="collapse-item" href="/pend_lain">Pendapata Lain-Lain</a>
           </div>
         </div>
       </li>
@@ -75,10 +74,8 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/pembelian">Pembelian</a>
+            <a class="collapse-item" href="/pembelian_tunai">Pembelian</a>
             <a class="collapse-item" href="/pembayaran_utang">Pembayaran Utang</a>
-            <a class="collapse-item" href="/pembayaran_biaya">Pembayaran Biaya</a>
-            <a class="collapse-item" href="/pembayaran_lain">Pembayaran Lain-lain</a>
           </div>
         </div>
       </li>
@@ -206,7 +203,7 @@
 
 
                   <!-- Card body -->
-                  <div id="collapse{{d.id}}" class="collapse show" role="tabpanel" aria-labelledby="heading{{d.id}}" data-parent="#accordionEx">
+                  <div id="collapse{{d.id}}" class="collapse " role="tabpanel" aria-labelledby="heading{{d.id}}" data-parent="#accordionEx">
                     <div class="card-body">
                       <li class="list-group-item">
                         <div class="row">
@@ -435,7 +432,7 @@
                                               </td>
                                             </tr>
                                             <tr>
-                                                  <td>Kuantitas</td>
+                                                  <td>Pendapatan</td>
                                                   <td>
                                                   <input type="number" name="pendapatan" value="{{d.pendapatan}}" class="form-control">
                                                   </td>

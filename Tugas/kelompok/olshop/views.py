@@ -1,20 +1,163 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from bootstrap_datepicker_plus import DatePickerInput
-from . import forms
-from . import models
+from . import models, forms
+from account.forms import CreateUserForm
 
 
 def halamandepan(req):
+    if not req.user.is_authenticated:
+        return redirect ('/account')
+ 
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(owner=req.user)
+    pen2 = models.pend_lainm.objects.filter(owner=req.user)
+
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1()
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend()
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(owner=req.user)
+    penjualan2 = models.pend_lainm.objects.filter(owner=req.user)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = total_terima1 + total_terima2
+
+    utang = models.utangm.objects.all()
+    utang = models.utangm.objects.filter(owner=req.user)
+
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang()
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = models.pem_tunaim.objects.filter(owner=req.user)
+    pem1 = models.pem_kreditm.objects.filter(owner=req.user)
+
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1()
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2()
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(owner=req.user)
+    pem = models.pem_kreditm.objects.filter(owner=req.user)
+    pem1 = models.pem_tunaim.objects.filter(owner=req.user)
+
+
+    bayar11 = 0
+
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    kas_keluar3 = bayar11 + bayar22 + bayar33
+
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
+
+    total = jumlah1 - jumlah2
+    
+    pend = models.pend_lainm.objects.all()
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    pend = models.pend_lainm.objects.filter(owner=req.user)
+    penjualan1 = models.penjualan1m.objects.filter(owner=req.user)
+    penjualan2 = models.pend_lainm.objects.filter(owner=req.user)
+
+    total_saldo1 = 0  
+
+    for p in penjualan1:
+      total_saldo1 += p.saldo()
+
+    total_saldo2 = 0
+
+    for p in pend:
+      total_saldo2 += p.saldo()
+
+    saldo_total1 = total_saldo1 + total_saldo2
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(owner=req.user)
+    pem = models.pem_kreditm.objects.filter(owner=req.user)
+    pem1 = models.pem_tunaim.objects.filter(owner=req.user)
+
+    saldo11 = 0
+
+    for p in pem:
+        saldo11 += p.saldo2()
+    
+    saldo22 = 0
+
+    for q in utang:
+        saldo22 += q.jumlah3()
+    
+    saldo33 = 0
+
+    for r in pem1:
+        saldo33 += r.saldo1()
+
+    jumlah10 = saldo11 + saldo22 + saldo33
+
+
     return render(req, 'hal1/index1.html', {
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah10': jumlah10,
+    'jumlah2': jumlah2,
+    'total': total,
+    'saldo_total1': saldo_total1,
+
     })
 
-def penjualan(req):
-    return render(req, 'uangmasuk/index2.html')
-
-
-def penjualan_tunai(req):
-            
+def penjualan_tunai(req):  
+      
     if req.GET and req.GET["dari"] and req.GET["sampai"]: 
         penjualan1 = models.penjualan1m.objects.filter(tanggal__range=[req.GET["dari"], req.GET["sampai"]])
         penjualan2 = models.pend_lainm.objects.filter(tanggal__range=[req.GET["dari"], req.GET["sampai"]])
@@ -22,6 +165,9 @@ def penjualan_tunai(req):
     else:
         penjualan1 = models.penjualan1m.objects.all()
         penjualan2 = models.pend_lainm.objects.all()
+    
+    penjualan1 = penjualan1.filter(owner=req.user)
+    penjualan2 = penjualan2.filter(owner=req.user)
     total = 0
     for p in penjualan1:
       total += p.total()
@@ -56,412 +202,394 @@ def penjualan_tunai(req):
         'piutang1': piutang1,
         'total': total,
     })
-    
-
-
 
 def piutang(req):
     pend = models.pend_lainm.objects.all()
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
 
+    pend = models.pend_lainm.objects.filter(owner=req.user)
+    penjualan1 = models.penjualan1m.objects.filter(owner=req.user)
+    penjualan2 = models.pend_lainm.objects.filter(owner=req.user)
+
+    total_saldo1 = 0
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_saldo1 += p.saldo()
+      total_terima1 += p.terima
 
     total_saldo2 = 0
     total_terima2 = 0   
- 
+
     for p in pend:
       total_saldo2 += p.saldo()
       total_terima2 += p.terima
 
-    saldo_total1 = total_saldo2
-    saldo_total2 = total_terima2
+    saldo_total1 = total_saldo1 + total_saldo2
+    saldo_total2 = total_terima1 + total_terima2
     return render(req, 'uangmasuk/index6.html', {
         'data2': pend,
+        'data' :penjualan1,
+        'data1' :penjualan2,
         'saldo_total1': saldo_total1,
         'saldo_total2': saldo_total2,
         
     })
 
 def utang(req):
+    task = models.utangm.objects.filter(owner=req.user)
     form_input = forms.utangf()
     if req.POST:
         form_input = forms.utangf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/utang')
+
     utang = models.utangm.objects.all()
+    utang = models.utangm.objects.filter(owner=req.user)
+
     jum_utang = 0
     for i in utang:
       jum_utang += i.jum_utang()
 
     return render(req, 'uangmasuk/index7.html', {
         'data': utang,
+        'data': task,
         'jum_utang': jum_utang,
         'form': form_input,        
     })
 
-def pend_lain(req):
-    form_input = forms.pend_lainf()
-    if req.POST:
-        form_input = forms.pend_lainf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pend_lain')
-    pend = models.pend_lainm.objects.all()
-    jum_pend = 0
-    jum_pend1 = 0
-    for i in pend:
-      jum_pend += i.jum_pend()
-      jum_pend1 += i.jum_pend1()
-    return render(req, 'uangmasuk/index8.html', {
-        'data': pend,
-        'jum_pend': jum_pend,
-        'jum_pend1': jum_pend1,
-        'form': form_input,
-    })
-
-def pembelian(req):
-    return render(req, 'uangkeluar/index9.html')
-
 def pembelian_tunai(req):
+    task = models.pem_tunaim.objects.filter(owner=req.user)
     form_input = forms.pem_tunaif()
     if req.POST:
         form_input = forms.pem_tunaif(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/pembelian_tunai')
     pem = models.pem_tunaim.objects.all()
-    jum_pem = 0
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = pem.filter(owner=req.user)
+    pem1 = pem1.filter(owner=req.user)
+
+    kas_keluar1 = 0
+    pembelian1 = 0
+    utang1 = 0
     for i in pem:
-      jum_pem += i.jum_pem()
+      kas_keluar1 += i.kas_keluar1()
+      pembelian1 += i.pembelian1()
+      utang1 += i.utang1()
+
+
+    kas_keluar2 = 0
+    pembelian2 = 0
+    utang2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2()
+      pembelian2 += i.pembelian2()
+      utang2 += i.utang2()
+
     return render(req, 'pembelian/index10.html', {
         'data': pem,
-        'jum_pem': jum_pem,
+        'data': task,
+        'data1': pem1,
+        'kas_keluar1': kas_keluar1,
+        'kas_keluar2': kas_keluar2,
+        'pembelian1' : pembelian1,
+        'pembelian2' : pembelian2,
+        'utang1': utang1,
+        'utang2': utang2,
         'form': form_input,
     })
 
 
-    
-def pembelian_kredit(req):
-    form_input = forms.pem_kreditf()
-    if req.POST:
-        form_input = forms.pem_kreditf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembelian_kredit')
-        
-    pem = models.pem_kreditm.objects.all()
-    jum_pem = 0
-    for i in pem:
-      jum_pem += i.jum_pem()
-    return render(req, 'pembelian/index11.html', {
-        'data': pem,
-        'jum_pem': jum_pem,
-        'form': form_input,
-    })
-
-def pembelian_lain(req):
-    form_input = forms.pem_lainf()
-    if req.POST:
-        form_input = forms.pem_lainf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembelian_lain')
-    pem = models.pem_lainm.objects.all()
-    jum_pem = 0
-    jum_pem1 = 0
-    for i in pem:
-      jum_pem += i.jum_pem()
-      jum_pem1 += i.jum_pem1()
-    return render(req, 'pembelian/index12.html', {
-        'data': pem,
-        'jum_pem': jum_pem,
-        'jum_pem1': jum_pem1,
-        'form': form_input,
-    })
 
 
 def pembayaran_utang(req):
+    
     utang = models.utangm.objects.all()
     pem = models.pem_kreditm.objects.all()
-    pem1 = models.pem_lainm.objects.all()
-    bayar = models.pembayaran_lainm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
 
-    jum_utang = 0
-    total_saldo = 0
-    total_dibayar = 0
+    utang = models.utangm.objects.filter(owner=req.user)
+    pem = models.pem_kreditm.objects.filter(owner=req.user)
+    pem1 = models.pem_tunaim.objects.filter(owner=req.user)
 
-    for i in utang:
-      jum_utang += i.jum_utang()
+    saldo11 = 0
+    bayar11 = 0
 
-    for u in utang:
-        total_saldo += u.saldo()
-        total_dibayar += u.dibayar
+    for p in pem:
+        saldo11 += p.saldo2()
+        bayar11 += p.dibayar1
 
-    total_saldo1 = 0
-    total_dibayar1 = 0
+    
+    saldo22 = 0
+    bayar22 = 0
 
-    for u in pem:
-        total_saldo1 += u.saldo()
-        total_dibayar1 += u.dibayar1
+    for q in utang:
+        saldo22 += q.jumlah3()
+        bayar22 += q.dibayar
+    
+    saldo33 = 0
+    bayar33 = 0
 
-    total_saldo2 = 0
-    total_dibayar2 = 0
+    for r in pem1:
+        saldo33 += r.saldo1()
+        bayar33 += r.dibayar
 
-    for u in pem1:
-        total_saldo2 += u.saldo()
-        total_dibayar2 += u.dibayar2
+    jumlah1 = saldo11 + saldo22 + saldo33
+    jumlah2 = bayar11 + bayar22 + bayar33
 
-    total_saldo3 = 0
-    total_dibayar3 = 0
-
-    for u in bayar:
-        total_saldo3 += u.saldo()
-        total_dibayar3 += u.dibayar3
-
-    jumlah1 = total_saldo + total_saldo1 + total_saldo2 + total_saldo3
-    jumlah2 = total_dibayar + total_dibayar1 + total_dibayar2 + total_dibayar3
 
     return render(req, 'uangkeluar/index13.html', {
         'data': utang,
         'data1': pem,
         'data2': pem1,
-        'data3': bayar,
-        'jum_utang': jum_utang,
-        'jumlah1': jumlah1,
-        'jumlah2': jumlah2,
+        'jumlah1' : jumlah1,
+        'jumlah2' : jumlah2,
     })
 
-def pembayaran_biaya(req):
-    form_input = forms.pembayaran_biayaf()
-    if req.POST:
-        form_input = forms.pembayaran_biayaf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembayaran_biaya')
-    bayar = models.pembayaran_biayam.objects.all()
-    jum_pem = 0
-    for i in bayar:
-      jum_pem += i.jum_pem()
 
-    return render(req, 'uangkeluar/index14.html', {
-        'data': bayar,
-        'jum_pem': jum_pem,
-        'form': form_input,
-    })
-
-def pembayaran_lain(req):
-    form_input = forms.pembayaran_lainf()
-    if req.POST:
-        form_input = forms.pembayaran_lainf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembayaran_lain')
-    bayar = models.pembayaran_lainm.objects.all()
-    jum1 = 0
-    jum2 = 0
-    for i in bayar:
-        jum1 += i.jum1()
-        jum2 += i.jum2()
-    return render(req, 'uangkeluar/index15.html', {
-        'data': bayar,
-        'jum1': jum1,
-        'jum2': jum2,
-        'form': form_input,
-    })
 
 def barang(req):
+    task = models.barangm.objects.filter(owner=req.user)
     form_input = forms.barangf()
     if req.POST:
         form_input = forms.barangf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/barang')
-    bayar = models.barangm.objects.all()
     return render(req, 'keperluan/index18.html', {
-        'data': bayar,
+        'data': task,
         'form': form_input,
     })
 
 def lr(req):
+    if  req.POST:
+        saldo_awal = models.SaldoAwal.objects.first()
 
-# saldo awal
+        if saldo_awal:
+            models.SaldoAwal.objects.update(saldo_awal=req.POST['saldo_awal'])
+        else:
+            models.SaldoAwal.objects.create(saldo_awal=req.POST['saldo_awal'])
 
-# uang masuk
- 
+        return redirect('/lr')
 
 
-# uang keluar
+
+
+
+    pen = models.penjualan1m.objects.all()
+    pen2 = models.pend_lainm.objects.all()
+
+    pen = models.penjualan1m.objects.filter(owner=req.user)
+    pen2 = models.pend_lainm.objects.filter(owner=req.user)
+
+    kas_masuk1 = 0
+    for q in pen:
+      kas_masuk1 += q.kas_masuk1()
+
+    kas_masuk2 = 0
+    for q in pen2:
+      kas_masuk2 += q.jum_pend()
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    penjualan1 = models.penjualan1m.objects.filter(owner=req.user)
+    penjualan2 = models.pend_lainm.objects.filter(owner=req.user)
+
+    total_terima1 = 0   
+
+    for p in penjualan1:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+
+    for p in penjualan2:
+      total_terima2 += p.terima
+
+    kas_masuk3 = total_terima1 + total_terima2
+
+    utang = models.utangm.objects.all()
+    kas_masuk4 = 0
+    for i in utang:
+      kas_masuk4 += i.jum_utang()
+
     pem = models.pem_tunaim.objects.all()
-    total6 = 0
-    for p in pem:
-      total6 += p.jum_pem()
+    pem1 = models.pem_kreditm.objects.all()
 
-    pem1 = models.pem_lainm.objects.all()
-    total7 = 0
-    for p in pem1:
-      total7 += p.jum_pem()
+    pem = models.pem_tunaim.objects.filter(owner=req.user)
+    pem1 = models.pem_kreditm.objects.filter(owner=req.user)
 
-    # total8 pembayaran utang
+    kas_keluar1 = 0
+    for i in pem:
+      kas_keluar1 += i.kas_keluar1()
+
+    kas_keluar2 = 0
+    for i in pem1:
+      kas_keluar2 += i.kas_keluar2()
+
     utang = models.utangm.objects.all()
     pem = models.pem_kreditm.objects.all()
-    pem1 = models.pem_lainm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
 
-    total_dibayar = 0
+    utang = models.utangm.objects.filter(owner=req.user)
+    pem = models.pem_kreditm.objects.filter(owner=req.user)
+    pem1 = models.pem_tunaim.objects.filter(owner=req.user)
 
+    bayar11 = 0
 
-    for u in utang:
-        total_dibayar += u.dibayar
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
 
-    total_dibayar1 = 0
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
 
-    for u in pem:
-        total_dibayar1 += u.dibayar1
+    for r in pem1:
+        bayar33 += r.dibayar
 
-    total_dibayar2 = 0
+    kas_keluar3 = bayar11 + bayar22 + bayar33
 
-    for u in pem1:
-        total_dibayar2 += u.dibayar2
+    jumlah1 = kas_masuk1 + kas_masuk2 + kas_masuk3 + kas_masuk4
+    jumlah2 = kas_keluar1 + kas_keluar2 + kas_keluar3
 
-    total8 = total_dibayar + total_dibayar1 + total_dibayar2
+    total = jumlah1 - jumlah2
 
-    bayar = models.pembayaran_biayam.objects.all()
-    total9 = 0
-    for p in bayar:
-      total9 += p.jum_pem()
+    saldo_awal = models.SaldoAwal.objects.first()
 
-    bayar2 = models.pembayaran_lainm.objects.all()
-    total10 = 0
-    for p in bayar2:
-        total10 += p.jum1()
+    saldo_awal1 = models.SaldoAwal.objects.all()
 
-    sawal = models.penjualan1m.objects.all()
     saldo1 = 0
-    for p in sawal:
+    for p in saldo_awal1:
         saldo1 += p.saldo_awal
 
-    total_semua2 = total6 + total7 + total8 + total9 + total10
-    print(sawal)
-
+    saldo = saldo1 + total
+       
     return render(req, 'keperluan/index16.html', {
-        'total6': total6,
-        'total7': total7,
-        'total8': total8,
-        'total9': total9,
-        'total10': total10,
-        'total_semua2': total_semua2,
-        'saldo': saldo1,
+    'kas_masuk1': kas_masuk1,
+    'kas_masuk2': kas_masuk2,
+    'kas_masuk3': kas_masuk3,
+    'kas_masuk4': kas_masuk4,
+    'kas_keluar1': kas_keluar1,
+    'kas_keluar2': kas_keluar2,
+    'kas_keluar3': kas_keluar3,
+    'jumlah1': jumlah1,
+    'jumlah2': jumlah2,
+    'total': total,
+    'data': saldo_awal,
+    'saldo': saldo,
     })
+
 
 
 
 
 
 #crud
-def saldo_awal(req):
-    form_input = forms.saldoawalf()
-    if req.POST:
-        form_input = forms.saldoawalf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-            return redirect('/')
-    return render(req, 'crud/barang.html', {
-        'form': form_input,
-    })
 
 def penjualan1v(req):
-    form_input = forms.penjualan1f()
+    task = models.penjualan1m.objects.filter(owner=req.user)
+    form_input = forms.penjualan1f(user=req.user)
     if req.POST:
-        form_input = forms.penjualan1f(req.POST)
+        form_input = forms.penjualan1f(req.POST, user=req.user)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
             return redirect('/penjualan_tunai')
     return render(req, 'crud/penjualan1.html', {
         'form': form_input,
+        'data': task,
     })
 
 
 
 def utangv(req):
+    task = models.barangm.objects.filter(owner=req.user)
     form_input = forms.utangf()
     if req.POST:
         form_input = forms.utangf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/utang')
     return render(req, 'crud/utang.html', {
         'form': form_input,
+        'data': task,
     })
 
 def pend_lainv(req):
+    task = models.pend_lainm.objects.filter(owner=req.user)
     form_input = forms.pend_lainf()
     if req.POST:
         form_input = forms.pend_lainf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/penjualan_tunai')
     return render(req, 'crud/pend_lain.html', {
         'form': form_input,
+        'data': task,
     })
 
 def pem_tunaiv(req):
+    task = models.barangm.objects.filter(owner=req.user)
     form_input = forms.pem_tunaif()
     if req.POST:
         form_input = forms.pem_tunaif(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/pembelian_tunai')
     return render(req, 'crud/pem_tunai.html', {
         'form': form_input,
+        'data': task,
     })
 
 def pem_kreditv(req):
-    form_input = forms.pem_kreditf()
+    task = models.barangm.objects.filter(owner=req.user)
+    form_input = forms.pem_kreditf(user=req.user)
     if req.POST:
-        form_input = forms.pem_kreditf(req.POST)
+        form_input = forms.pem_kreditf(req.POST, user=req.user)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
-        return redirect('/pembelian_kredit')
+        return redirect('/pembelian_tunai')
     return render(req, 'crud/pem_kredit.html', {
         'form': form_input,
+        'data': task,
     })
 
 def pem_lainv(req):
-    form_input = forms.pem_lainf()
+    task = models.barangm.objects.filter(owner=req.user)
+    form_input = forms.pem_lainf(owner=req.user)
     if req.POST:
         form_input = forms.pem_lainf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/pembelian_lain')
     return render(req, 'crud/pem_lain.html', {
         'form': form_input,
+        'data': task,
     })
 
-def pembayaran_biayav(req):
-    form_input = forms.pembayaran_biayaf()
-    if req.POST:
-        form_input = forms.pembayaran_biayaf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembayaran_biaya')
-    return render(req, 'crud/pembayaran_biaya.html', {
-        'form': form_input,
-    })
-
-def pembayaran_lainv(req):
-    form_input = forms.pembayaran_lainf()
-    if req.POST:
-        form_input = forms.pembayaran_lainf(req.POST)
-        if form_input.is_valid():
-            form_input.save()
-        return redirect('/pembayaran_lain')
-    return render(req, 'crud/pembayaran_lain.html', {
-        'form': form_input,
-    })
 
 def barangv(req):
     form_input = forms.barangf()
     if req.POST:
         form_input = forms.barangf(req.POST)
         if form_input.is_valid():
+            form_input.instance.owner = req.user
             form_input.save()
         return redirect('/barang')
     return render(req, 'crud/barang.html', {
@@ -496,10 +624,10 @@ def edit_p_kredit(req, id):
 
 def edit_p_kredit_terima(req, id):
     if req.POST:
-        models.penjualan2m.objects.filter(pk=id).update(terima=req.POST['terima'])
+        models.penjualan1m.objects.filter(pk=id).update(terima=req.POST['terima'])
         return redirect('/piutang')
 
-    penjualan = models.penjualan2m.objects.filter(pk=id).first()
+    penjualan = models.penjualan1m.objects.filter(pk=id).first()
     return render(req, 'uangmasuk/edit_piutang.html', {
         'data': penjualan,
     })
@@ -514,7 +642,7 @@ def edit_p_kredit_terima1(req, id):
         'data1': penjualan,
     })
 
-def edit_pend_lain_terima(req, id):
+def edit_pend_lain_terima(req, id): 
     if req.POST:
         models.pend_lainm.objects.filter(pk=id).update(terima=req.POST['terima'])
         return redirect('/piutang')
@@ -556,7 +684,7 @@ def edit_pend_lain(req, id):
 
 def edit_pem_tunai(req, id):
     if req.POST:
-        models.pem_tunaim.objects.filter(pk=id).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
+        models.pem_tunaim.objects.filter(pk=id).update(keterangan=req.POST['keterangan'], kas_keluar=req.POST['kas_keluar'])
         return redirect('/pembelian_tunai')
 
     pem = models.pem_tunaim.objects.filter(pk=id).first()
@@ -656,10 +784,10 @@ def edit_butang2(req, id):
 
 def edit_butang3(req, id):
     if req.POST:
-        models.pembayaran_lainm.objects.filter(pk=id).update(dibayar3=req.POST['dibayar3'])
+        models.pem_tunaim.objects.filter(pk=id).update(dibayar=req.POST['dibayar'])
         return redirect('/pembayaran_utang')
 
-    utang = models.pembayaran_lainm.objects.filter(pk=id).first()
+    utang = models.pem_tunaim.objects.filter(pk=id).first()
     return render(req, 'uangkeluar/edit_butang3.html', {
         'data': utang,
     })
@@ -698,7 +826,7 @@ def hapus5(req, id):
 
 def hapus6(req, id):
     models.pem_kreditm.objects.filter(pk=id).delete()
-    return redirect('/pembelian_kredit')
+    return redirect('/pembelian_tunai')
 
 def hapus7(req, id):
     models.pem_lainm.objects.filter(pk=id).delete()
