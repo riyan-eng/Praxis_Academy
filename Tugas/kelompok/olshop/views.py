@@ -370,13 +370,14 @@ def barang(req):
     })
 
 def lr(req):
+    saldo_awal = models.SaldoAwal.objects.filter(owner=req.user).first()
     if  req.POST:
-        saldo_awal = models.SaldoAwal.objects.first()
+
 
         if saldo_awal:
-            models.SaldoAwal.objects.update(saldo_awal=req.POST['saldo_awal'])
+            models.SaldoAwal.objects.filter(owner=req.user).update(saldo_awal=req.POST['saldo_awal'])
         else:
-            models.SaldoAwal.objects.create(saldo_awal=req.POST['saldo_awal'])
+            models.SaldoAwal.objects.create(saldo_awal=req.POST['saldo_awal'], owner=req.user)
 
         return redirect('/lr')
 
@@ -417,6 +418,9 @@ def lr(req):
     kas_masuk3 = total_terima1 + total_terima2
 
     utang = models.utangm.objects.all()
+
+    utang = models.utangm.objects.filter(owner=req.user)
+
     kas_masuk4 = 0
     for i in utang:
       kas_masuk4 += i.jum_utang()
@@ -465,9 +469,9 @@ def lr(req):
 
     total = jumlah1 - jumlah2
 
-    saldo_awal = models.SaldoAwal.objects.first()
-
     saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(owner=req.user)
 
     saldo1 = 0
     for p in saldo_awal1:
