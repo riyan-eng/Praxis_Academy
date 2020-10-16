@@ -47,6 +47,7 @@ class penjualan1m(models.Model):
     def saldo(self):
         return self.piutang() - self.terima
 
+
 class utangm(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='utang')
     tanggal = models.DateField(auto_now_add=True)

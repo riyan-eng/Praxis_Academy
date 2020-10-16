@@ -139,6 +139,100 @@ def halamandepan(req):
 
     jumlah10 = saldo11 + saldo22 + saldo33
 
+    saldo_awal1 = models.SaldoAwal.objects.all()
+
+    saldo_awal1 = models.SaldoAwal.objects.filter(owner=req.user)
+
+    saldo1 = 0
+    for p in saldo_awal1:
+        saldo1 += p.saldo_awal
+
+    saldo_akhir = saldo1 + jumlah1 - jumlah2
+
+    # persen
+    pend = models.pend_lainm.objects.all()
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+
+    pend = models.pend_lainm.objects.filter(owner=req.user)
+    penjualan1 = models.penjualan1m.objects.filter(owner=req.user)
+
+    total_terima1 = 0   
+    for p in penjualan1:
+      total_terima1 += p.terima
+
+    total_terima2 = 0   
+    for p in pend:
+      total_terima2 += p.terima
+
+    saldo_total2 = total_terima1 + total_terima2
+
+    penjualan1 = models.penjualan1m.objects.all()
+    penjualan2 = models.pend_lainm.objects.all()
+    
+    penjualan1 = penjualan1.filter(owner=req.user)
+    penjualan2 = penjualan2.filter(owner=req.user)
+
+    piutang1 = 0
+    for r in penjualan1:
+      piutang1 += r.piutang1()
+
+    jum_pend3 = 0
+    for u in penjualan2:
+      jum_pend3 += u.jum_pend3()
+
+    saldo_total1 = piutang1 + jum_pend3
+    persenpiutang = saldo_total2 / saldo_total1 * 100
+
+    # persenutang
+    utang = models.utangm.objects.all()
+    utang = models.utangm.objects.filter(owner=req.user)
+
+    jum_utang = 0
+    for i in utang:
+      jum_utang += i.jum_utang()
+
+    pem = models.pem_tunaim.objects.all()
+    pem1 = models.pem_kreditm.objects.all()
+
+    pem = pem.filter(owner=req.user)
+    pem1 = pem1.filter(owner=req.user)
+
+    utang1 = 0
+    for i in pem:
+      utang1 += i.utang1()   
+
+    utang2 = 0
+    for i in pem1:
+      utang2 += i.utang2() 
+
+    jumlah_utang = jum_utang + utang1 + utang2
+
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(owner=req.user)
+    pem = models.pem_kreditm.objects.filter(owner=req.user)
+    pem1 = models.pem_tunaim.objects.filter(owner=req.user)
+
+    bayar11 = 0
+    for p in pem:
+        bayar11 += p.dibayar1
+    
+    bayar22 = 0
+    for q in utang:
+        bayar22 += q.dibayar
+    
+    bayar33 = 0
+    for r in pem1:
+        bayar33 += r.dibayar
+
+    jumlahbayar = bayar11 + bayar22 + bayar33    
+
+    persenutang = jumlahbayar / jumlah_utang * 100
+
+
 
     return render(req, 'hal1/index1.html', {
     'kas_masuk1': kas_masuk1,
@@ -153,7 +247,9 @@ def halamandepan(req):
     'jumlah2': jumlah2,
     'total': total,
     'saldo_total1': saldo_total1,
-
+    'persenpiutang': persenpiutang,
+    'persenutang': persenutang,
+    'saldo_akhir': saldo_akhir,
     })
 
 def penjualan_tunai(req):  
