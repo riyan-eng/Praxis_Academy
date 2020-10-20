@@ -1,6 +1,24 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.forms import UserCreationForm
 from . import models
+from . forms import userform
+
+def daftar(req):
+    form = userform()
+
+    if req.method == 'POST':
+        form = userform(req.POST)
+        if form.is_valid():
+            form.save()
+
+    context = {
+        'form': form,
+    }
+    return render (req, 'akun/daftar.html', context)
+
+def masuk(req):
+    context = {}
+    return render (req, 'akun/masuk.html', context)
 
 def index(req):
     if req.POST:

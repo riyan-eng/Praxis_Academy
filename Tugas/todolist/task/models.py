@@ -1,5 +1,9 @@
 from django.db import models
 
+class User(models.Model):
+    phone = models.TextField(default=None)
+
+
 class Task(models.Model):
     name = models.TextField()
 
