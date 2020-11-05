@@ -657,7 +657,7 @@ def penjualan1v(req, id):
         if form_input.is_valid():
             form_input.instance.usaha = usaha
             form_input.save()
-        return redirect(f'/usaha/penjualan1bayar/{id}')
+        return redirect(f'/usaha/penjualan_tunai/{id}')
     return render(req, 'crud/penjualan1.html', {
         'id': id,
         'form': form_input,
