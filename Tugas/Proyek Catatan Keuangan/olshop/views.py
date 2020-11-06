@@ -3,6 +3,8 @@ from django.db.models import Sum
 from bootstrap_datepicker_plus import DatePickerInput
 from . import models, forms
 from account.forms import CreateUserForm
+from datetime import timedelta
+from django.utils.timezone import now
 
 def usaha(req):
 
@@ -15,6 +17,25 @@ def usaha(req):
     return render(req, 'crud/usaha1.html', {
     'data': ush,
     })
+
+def notif_r(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10)
+	
+    notif = models.penjualan1m.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo() > 0:
+            notifnew.append(p)
+    
+    return notifnew
 
 def halamandepan(req, id):
 
@@ -274,6 +295,8 @@ def halamandepan(req, id):
     #usaha
     ush = models.usaha.objects.filter(pk=id).first()
     ush1 = models.usaha.objects.filter(owner=req.user)
+
+    due = notif_r(req, id)
     
 
     return render(req, 'hal1/index1.html', {
@@ -297,6 +320,7 @@ def halamandepan(req, id):
     'maks_keluar': maks_keluar,
     'data': ush1,
     'usaha': ush,
+    'due': due,
     })
 
 def penjualan_tunai(req, id):  
@@ -356,6 +380,11 @@ def piutang(req, id):
     penjualan1 = models.penjualan1m.objects.filter(usaha=id)
     penjualan2 = models.pend_lainm.objects.filter(usaha=id)
 
+    penjualan1new = []
+    for p in penjualan1:
+        if p.saldo() > 0:
+            penjualan1new.append(p)
+
     total_saldo1 = 0
     total_terima1 = 0   
 
@@ -375,7 +404,7 @@ def piutang(req, id):
     return render(req, 'uangmasuk/index6.html', {
         'id': id,
         'data2': pend,
-        'data' :penjualan1,
+        'data' :penjualan1new,
         'data1' :penjualan2,
         'saldo_total1': saldo_total1,
         'saldo_total2': saldo_total2,
@@ -1788,3 +1817,5 @@ def lrk(req, id):
     'sawal': sawal,
     'saldo': saldo,
     })
+
+
