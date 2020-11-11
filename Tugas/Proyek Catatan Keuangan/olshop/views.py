@@ -37,6 +37,45 @@ def notif_r(req, id):
     
     return notifnew
 
+def notif_r1(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10) #9 hari sebelumnya ngirim notif
+	
+    notif = models.pend_lainm.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo() > 0:
+            notifnew.append(p)
+    
+    return notifnew
+
+def notif_r2(req, id):
+    ush = models.usaha.objects.filter(pk=id).first()
+
+    today = now().replace(hour=0, minute=0, second=0, microsecond=0)
+    tomorrow = today + timedelta(days=10) #9 hari sebelumnya ngirim notif
+	
+    notif = models.utangm.objects.filter(
+        usaha=ush,
+        jatuh_tempo__gte=today,
+        jatuh_tempo__lt=tomorrow,
+    )
+
+    notifnew = []
+    for p in notif:
+        if p.saldo() > 0:
+            notifnew.append(p)
+    
+    return notifnew
+
+
 def halamandepan(req, id):
 
  
@@ -297,6 +336,9 @@ def halamandepan(req, id):
     ush1 = models.usaha.objects.filter(owner=req.user)
 
     due = notif_r(req, id)
+    due1 = notif_r1(req, id)
+    due2 = notif_r2(req, id)
+    total_due = len(due) + len(due1) + len(due2)
     
 
     return render(req, 'hal1/index1.html', {
@@ -321,6 +363,9 @@ def halamandepan(req, id):
     'data': ush1,
     'usaha': ush,
     'due': due,
+    'due1': due1,
+    'due2': due2,
+    'total_due': total_due,
     })
 
 def penjualan_tunai(req, id):  
@@ -832,13 +877,39 @@ def penjualan1bayar(req, id):
 
 #edit
 def edit_p_tunai(req, id, id_p):
+    
     if req.POST:
         models.penjualan1m.objects.filter(pk=id_p).update(kuantitas=req.POST['kuantitas'], kas_masuk=req.POST['kas_masuk'])
         return redirect(f'/usaha/penjualan_tunai/{id}')
 
-    penjualan = models.penjualan1m.objects.filter(pk=id).first()
+    penjualan = models.penjualan1m.objects.filter(pk=id_p).first()
+
     return render(req, 'penjualan/edit_p_tunai.html', {
-        'data': penjualan,
+        'd': penjualan,
+        'id': id,
+    })
+
+def edit_pend_lain(req, id, id_p):
+    if req.POST:
+        models.pend_lainm.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], pendapatan=req.POST['pendapatan'], kas_masuk=req.POST['kas_masuk'])
+        return redirect(f'/usaha/penjualan_tunai/{id}')
+
+    pend = models.pend_lainm.objects.filter(pk=id_p).first()
+    return render(req, 'penjualan/edit_pend_lain.html', {
+        'd': pend,
+        'id': id,
+    })
+
+
+def edit_p_lain(req, id, id_p):
+    if req.POST:
+        models.penjualan3m.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], kas=req.POST['kas'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
+        return redirect(f'/usaha/penjualan_lain/{id}')
+
+    penjualan = models.penjualan3m.objects.filter(pk=id_p).first()
+    return render(req, 'penjualan/edit_p_lain.html', {
+        'd': penjualan,
+        'id': id,
     })
 
 def edit_p_kredit(req, id, id_p):
@@ -848,7 +919,8 @@ def edit_p_kredit(req, id, id_p):
 
     penjualan = models.penjualan2m.objects.filter(pk=id).first()
     return render(req, 'penjualan/edit_p_kredit.html', {
-        'data': penjualan,
+        'd': penjualan,
+        'id': id,
     })
 
 def edit_p_kredit_terima(req, id, id_p):
@@ -881,35 +953,18 @@ def edit_pend_lain_terima(req, id, id_p):
         'data2': penjualan,
     })
 
-def edit_p_lain(req, id, id_p):
-    if req.POST:
-        models.penjualan3m.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], kas=req.POST['kas'], piutang=req.POST['piutang'], catatan=req.POST['catatan'])
-        return redirect(f'/usaha/penjualan_lain/{id}')
-
-    penjualan = models.penjualan3m.objects.filter(pk=id).first()
-    return render(req, 'penjualan/edit_p_lain.html', {
-        'data': penjualan,
-    })
-
 def edit_utang(req, id, id_p):
     if req.POST:
         models.utangm.objects.filter(pk=id_p).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
         return redirect(f'/usaha/utang/{id}')
 
-    utang = models.utangm.objects.filter(pk=id).first()
+    utang = models.utangm.objects.filter(pk=id_p).first()
     return render(req, 'uangmasuk/edit_utang.html', {
-        'data': utang,
+        'd': utang,
+        'id': id,
     })
 
-def edit_pend_lain(req, id, id_p):
-    if req.POST:
-        models.pend_lainm.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], pendapatan=req.POST['pendapatan'], kas_masuk=req.POST['kas_masuk'])
-        return redirect(f'/usaha/penjualan_tunai/{id}')
 
-    pend = models.pend_lainm.objects.filter(pk=id).first()
-    return render(req, 'uangmasuk/edit_pend_lain.html', {
-        'data': pend,
-    })
 
 def edit_pem_tunai(req, id, id_p):
     if req.POST:
