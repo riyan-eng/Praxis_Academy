@@ -22,7 +22,7 @@ def notif_r(req, id):
     ush = models.usaha.objects.filter(pk=id).first()
 
     today = now().replace(hour=0, minute=0, second=0, microsecond=0)
-    tomorrow = today + timedelta(days=10)
+    tomorrow = today + timedelta(days=10) #9 hari sebelumnya ngirim notif
 	
     notif = models.penjualan1m.objects.filter(
         usaha=ush,
