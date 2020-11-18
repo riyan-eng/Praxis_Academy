@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-<!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
@@ -18,25 +16,42 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/table.css' %}" rel="stylesheet">
   <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
   <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="  https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+  <style>
+    table, td {
+  border: 1px solid rgb(223, 223, 223);
+  border-collapse: collapse;
+}
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+table{
+    width: 100%;
+}
+
+#td1{
+    background-color: rgb(123, 131, 134);
+}
 
 
-<style>
-    .asteriskField {
- display: none;
- } 
-</style>
+tr:nth-child(even){background-color: #f2f2f2}
+
+#th1 {
+  background-color: rgb(34, 179, 247);
+  color: white;
+  text-align: center;
+}
+
+#th2 {
+  background-color: rgb(34, 179, 247);
+  color: white;
+}
+
+  </style>
+</head>
+
+<body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -74,7 +89,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
-            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
             <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
@@ -101,11 +116,11 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
             <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
             <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
             <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
-            <a class="collapse-item" href="/usaha">Usaha</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
       <!-- Divider -->
@@ -115,6 +130,7 @@
     </ul>
     <!-- End of Sidebar -->
 
+    <!-- Content Wrapper -->
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 

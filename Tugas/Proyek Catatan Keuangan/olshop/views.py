@@ -220,7 +220,7 @@ def halamandepan(req, id):
     for p in pend:
       total_saldo2 += p.saldo()
 
-    saldo_total1 = total_saldo1 + total_saldo2
+    saldo_total3 = total_saldo1 + total_saldo2
 
     utang = models.utangm.objects.all()
     pem = models.pem_kreditm.objects.all()
@@ -348,13 +348,7 @@ def halamandepan(req, id):
     persenutang = int(persenutangcr)
 
 
-    a = kas_masuk1 + kas_masuk2 - kas_keluar1 - kas_keluar2
-    b = kas_masuk4 - kas_keluar3
-
-    rasioxx = 0
-    if not(b == 0):
-        rasioxx = (a + kas_masuk3) / b *100
-    rasio = int(rasioxx)
+    
 
     saldo_awal1 = models.SaldoAwal.objects.all()
     saldo_awal1 = models.SaldoAwal.objects.filter(usaha=id)
@@ -363,11 +357,60 @@ def halamandepan(req, id):
     for p in saldo_awal1:
         saldo1 += p.saldo_awal
 
+    #maskimal uang keluar
+    utang = models.utangm.objects.all()
+    pem = models.pem_kreditm.objects.all()
+    pem1 = models.pem_tunaim.objects.all()
+
+    utang = models.utangm.objects.filter(usaha=id)
+    pem = models.pem_kreditm.objects.filter(usaha=id)
+    pem1 = models.pem_tunaim.objects.filter(usaha=id)
+
+    saldo111 = 0
+    bayar111 = 0
+
+    for p in pem:
+        saldo111 += p.saldo2()
+        bayar111 += p.dibayar1
+
+    
+    saldo222 = 0
+    bayar222 = 0
+
+    for q in utang:
+        saldo222 += q.jumlah3()
+        bayar222 += q.dibayar
+    
+    saldo333 = 0
+    bayar333 = 0
+
+    for r in pem1:
+        saldo333 += r.saldo1()
+        bayar333 += r.dibayar
+
+    jumlah1utang = saldo111 + saldo222 + saldo333
+    jumlah2utang = bayar111 + bayar222 + bayar333
+
+    kas_masuk4utang = jumlah1utang + jumlah2utang
+    print(kas_masuk4utang)
+
+
+
     c = kas_masuk1 + kas_masuk2 + kas_masuk3 + saldo1
     d = kas_keluar1 + kas_keluar2
-    e = kas_masuk4 - kas_keluar3
+    e = kas_masuk4utang - kas_keluar3
+
 
     maks_keluar = c - d - e
+
+    #rasio
+    a = saldo_akhir
+    b = jumlah10
+
+    rasioxx = 0
+    if not(b == 0):
+        rasioxx = a / b *100
+    rasio = int(rasioxx)
 
     #usaha
     ush = models.usaha.objects.filter(pk=id).first()
@@ -394,7 +437,7 @@ def halamandepan(req, id):
     'jumlah10': jumlah10,
     'jumlah2': jumlah2,
     'total': total,
-    'saldo_total1': saldo_total1,
+    'saldo_total3': saldo_total3,
     'persenpiutang': persenpiutang,
     'persenutang': persenutang,
     'saldo_akhir': saldo_akhir,
@@ -1124,8 +1167,8 @@ def edit_barang(req, id, id_p):
     if req.POST:
         models.barangm.objects.filter(pk=id_p).update(barang=req.POST['barang'], harga_beli=req.POST['harga_beli'], harga_jual=req.POST['harga_jual'])
         return redirect(f'/usaha/barang/{id}')
-
-    pem = models.barangm.objects.filter(pk=id).first()
+# task = models.barangm.objects.filter(usaha=id)
+    pem = models.barangm.objects.filter(pk=id_p).first()
     return render(req, 'keperluan/edit_barang.html', {
         'd': pem,
         'id': id,
@@ -1848,7 +1891,6 @@ def lrk(req, id):
     sawal = 0
     for q in saldo_awal:
       sawal += q.sawal()
-    print(sawal)
 
     pen = models.penjualan1m.objects.all()
     pen2 = models.pend_lainm.objects.all()

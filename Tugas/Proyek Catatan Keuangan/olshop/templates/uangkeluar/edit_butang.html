@@ -69,7 +69,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
-            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
             <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
@@ -96,11 +96,11 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
             <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
             <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
             <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
-            <a class="collapse-item" href="/usaha">Usaha</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
       <!-- Divider -->
@@ -136,6 +136,7 @@
         </nav>
           <div class="container">
           <div class="container"><br>
+            <h1 style="text-align: center;">Transaksi</h1>
 
             
         
@@ -148,9 +149,15 @@
               </div>
               <br>
         
-              Tanggal Transaksi
+              Tanggal transaksi
               <div >
                 <input value="{{d.tanggal}}" class="form-control" disabled>
+              </div>
+              <br>
+
+              Jatuh tempo
+              <div >
+                <input value="{{d.jatuh_tempo}}" class="form-control" disabled>
               </div>
               <br>
         

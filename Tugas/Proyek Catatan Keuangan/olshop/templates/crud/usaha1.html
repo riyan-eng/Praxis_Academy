@@ -23,7 +23,7 @@
   
 </head>
 
-<body id="page-top">
+<body id="page-top"><br>
 
         <!-- End of Topbar -->
 
@@ -38,8 +38,8 @@
         <div class="table">
             <table class="highlight">
                 <thead>
-                  <div class="container" style="align-items: right;">
-                    <a href="/usahav" class="fa fa-plus-circle fa-2x" ></a>
+                  <div style="margin: 20px;">
+                    <a href="/usahav" class="fa fa-plus-circle fa-2x" ><span style="font-size: 20px;">_Tambah</span></a>
                   </div>
 
                   {% for d in data %}
@@ -52,11 +52,8 @@
                             Pilihan...
                           </a>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Detail</a>
                             <a class="dropdown-item" href="/{{d.id}}/edit_usaha">Edit</a>
                             <a class="dropdown-item" href="/{{d.id}}/hapus12">Hapus</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
                           </div>
                         </div>
                       </div>

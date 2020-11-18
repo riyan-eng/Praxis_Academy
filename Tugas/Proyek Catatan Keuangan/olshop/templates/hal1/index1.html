@@ -75,7 +75,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/usaha/penjualan_tunai/{{id}}">Penjualan</a>
-            <a class="collapse-item" href="/usaha/piutang/{{id}}">Piutang</a>
+            <a class="collapse-item" href="/usaha/piutang/{{id}}">Penerimaan Piutang</a>
             <a class="collapse-item" href="/usaha/utang/{{id}}">Utang</a>
           </div>
         </div>
@@ -102,11 +102,11 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang</a>
             <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
             <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
             <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
-            <a class="collapse-item" href="/usaha">Usaha</a>
+            <a class="collapse-item" href="/usaha">Daftar Usaha</a>
           </div>
         </div>
       <!-- Divider -->
@@ -163,60 +163,60 @@
                 {% for n in due %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_p_kredit_terima/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: rgb(51, 161, 51);">Piutang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">PjB - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due1 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_pend_lain_terima/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: rgb(51, 161, 51);">Piutang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo }}</div>
+                    <div class="small text-gray-500">PjJ - {{n.id}} Jumlah {{n.saldo }}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due2 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">Utg - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due3 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang3/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo}}</div>
+                    <div class="small text-gray-500">PbU - {{n.id}} Jumlah {{n.saldo}}</div>
                   </div>
                 </a>
                 {% endfor %}
                 {% for n in due4 %}
                 <a class="dropdown-item d-flex align-items-center" href="/usaha/{{id}}/edit_butang1/{{n.id}}">
                   <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
+                    <div style="color: orange;">Utang</div>
+                    <!-- <div class="status-indicator bg-success"></div> -->
                   </div>
                   <div class="font-weight-bold">
                     <div class="text-truncate">{{n.jatuh_tempo}}</div>
-                    <div class="small text-gray-500">ID {{n.id}} Jumlah {{n.saldo1}}</div>
+                    <div class="small text-gray-500">PbB - {{n.id}} Jumlah {{n.saldo1}}</div>
                   </div>
                 </a>
                 {% endfor %}
@@ -269,7 +269,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Rasio kecukupan arus kas: {{rasio}} %</h1>
+            <h1 class="h3 mb-0 text-gray-800">Rasio kas: {{rasio}} %</h1>
           </div>
           <!-- Content Row -->
           <div class="row">
@@ -284,7 +284,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{jumlah1}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -307,7 +307,7 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -321,10 +321,10 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Piutang</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{saldo_total1}}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{saldo_total3}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -343,7 +343,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">Rp {{jumlah10}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="far fa-credit-card fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
