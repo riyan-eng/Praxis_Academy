@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
@@ -16,42 +18,25 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/table.css' %}" rel="stylesheet">
   <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
   <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="  https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <style>
-    table, td {
-  border: 1px solid rgb(223, 223, 223);
-  border-collapse: collapse;
-}
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-table{
-    width: 100%;
-}
-
-#td1{
-    background-color: rgb(123, 131, 134);
-}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 
-tr:nth-child(even){background-color: #f2f2f2}
-
-#th1 {
-  background-color: rgb(34, 179, 247);
-  color: white;
-  text-align: center;
-}
-
-#th2 {
-  background-color: rgb(34, 179, 247);
-  color: white;
-}
-
-  </style>
-</head>
-
-<body id="page-top">
+<style>
+    .asteriskField {
+ display: none;
+ } 
+</style>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -60,7 +45,7 @@ tr:nth-child(even){background-color: #f2f2f2}
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
@@ -116,23 +101,13 @@ tr:nth-child(even){background-color: #f2f2f2}
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/lr/{{id}}">Arus Kas</a>
-            <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
             <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
+            <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
+            <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
+            <a class="collapse-item" href="/usaha">Usaha</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusaha" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="far fa-handshake"></i>
-          <span>Usaha Saya</span>
-        </a>
-          <div id="collapseusaha" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/usaha">Usaha</a>
-            </div>
-          </div>
-      </li>
       <!-- Divider -->
 
       <!-- Heading -->
@@ -154,79 +129,21 @@ tr:nth-child(even){background-color: #f2f2f2}
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+          
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Pengguna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profil
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Pengaturan
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Aktivitas
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Keluar
-                </a>
-              </div>
-            </li>
+          <ul class="nav navbar-nav navbar-center" >
+            <div>
+              <h4>ALIRAN KAS</h4>      
+            </div>
 
           </ul>
-
         </nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container">
-            <div class="page-header" align="center">
-              <h2>ARUS KAS</h2>      
-            </div>
+            
 
             <!-- <a class="btn-floating btn-small waves-effect waves-light red right"><i class="material-icons">delete_forever</i></a> -->
         </div>

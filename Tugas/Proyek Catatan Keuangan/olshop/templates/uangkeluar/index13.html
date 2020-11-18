@@ -35,7 +35,7 @@
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
@@ -91,23 +91,13 @@
         </a>
         <div id="collapsekeperluan" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/usaha/lr/{{id}}">Arus Kas</a>
-            <a class="collapse-item" href="utilities-border.html">Daftar Pemasok</a>
             <a class="collapse-item" href="/usaha/barang/{{id}}">Daftar Barang Dijual</a>
+            <a class="collapse-item" href="/usaha/lr/{{id}}">Aliran Kas</a>
+            <a class="collapse-item" href="/usaha/lrk/{{id}}">Aliran Kas Konsolidasi</a>
+            <a class="collapse-item" href="/usaha/wia/{{id}}">What if Analysis</a>
+            <a class="collapse-item" href="/usaha">Usaha</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseusaha" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="far fa-handshake"></i>
-          <span>Usaha Saya</span>
-        </a>
-          <div id="collapseusaha" class="collapse" aria-labelledby="headingkeperluan" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/usaha">Usaha</a>
-            </div>
-          </div>
-      </li>
       <!-- Divider -->
 
       <!-- Heading -->
@@ -179,7 +169,7 @@
 
 
               <!-- Card body -->
-              <div id="collapse{{d.id}}" class="collapse " role="tabpanel" aria-labelledby="heading{{d.id}}" data-parent="#accordionEx">
+              <div id="collapse{{d.id}}" class="collapse show" role="tabpanel" aria-labelledby="heading{{d.id}}" data-parent="#accordionEx">
                 <div class="card-body">
                   <li class="list-group-item">
                     <div class="row">
@@ -202,7 +192,7 @@
                   <li class="center list-group-item">
                     <div class="row">
                       <div class="col-lg-1 col-md-2 col">
-                        <a class="btn btn-outline-success" href="" data-toggle="modal" data-target="#editModal1{{d.id}}">Bayar</a>
+                        <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_butang/{{d.id}}" >Bayar</a>
                         <div class="container">
                           <!-- Modal -->
                           <div class="modal fade" id="editModal1{{d.id}}" role="dialog">
@@ -282,12 +272,12 @@
 
 
             <!-- Card body -->
-            <div id="collapse1{{d.id}}" class="collapse " role="tabpanel" aria-labelledby="heading1{{d.id}}" data-parent="#accordionEx">
+            <div id="collapse1{{d.id}}" class="collapse show" role="tabpanel" aria-labelledby="heading1{{d.id}}" data-parent="#accordionEx">
               <div class="card-body">
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col">ID</div>
-                    <div class="col-lg-9 col-md-9 col">: Umm-{{d.id}}</div>
+                    <div class="col-lg-9 col-md-9 col">: PU - {{d.id}}</div>
                   </div>
                 </li>
                 <li class="list-group-item">
@@ -305,7 +295,7 @@
                 <li class="center list-group-item">
                   <div class="row">
                     <div class="col-lg-1 col-md-2 col">
-                      <a class="btn btn-outline-success" href="" data-toggle="modal" data-target="#editModal1{{d.id}}">Bayar</a>
+                      <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_butang3/{{d.id}}">Bayar</a>
                       <div class="container">
                         <!-- Modal -->
                         <div class="modal fade" id="editModal1{{d.id}}" role="dialog">
@@ -385,12 +375,12 @@
 
 
           <!-- Card body -->
-          <div id="collapse2{{d.id}}" class="collapse " role="tabpanel" aria-labelledby="heading2{{d.id}}" data-parent="#accordionEx">
+          <div id="collapse2{{d.id}}" class="collapse show" role="tabpanel" aria-labelledby="heading2{{d.id}}" data-parent="#accordionEx">
             <div class="card-body">
               <li class="list-group-item">
                 <div class="row">
                   <div class="col-lg-3 col-md-3 col">ID</div>
-                  <div class="col-lg-9 col-md-9 col">: PB-{{d.id}}</div>
+                  <div class="col-lg-9 col-md-9 col">: PB - {{d.id}}</div>
                 </div>
               </li>
               <li class="list-group-item">
@@ -408,7 +398,7 @@
               <li class="center list-group-item">
                 <div class="row">
                   <div class="col-lg-1 col-md-2 col">
-                    <a class="btn btn-outline-success" href="" data-toggle="modal" data-target="#editModal2{{d.id}}">Bayar</a>
+                    <a class="btn btn-outline-success" href="/usaha/{{id}}/edit_butang1/{{d.id}}">Bayar</a>
                     <div class="container">
                       <!-- Modal -->
                       <div class="modal fade" id="editModal2{{d.id}}" role="dialog">

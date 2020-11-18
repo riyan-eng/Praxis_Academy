@@ -1057,7 +1057,7 @@ def edit_utang(req, id, id_p):
 
 def edit_pem_tunai(req, id, id_p):
     if req.POST:
-        models.pem_tunaim.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], kas_keluar=req.POST['kas_keluar'])
+        models.pem_tunaim.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], kas_keluar=req.POST['kas_keluar'], pembelian=req.POST['pembelian'], jatuh_tempo=req.POST['jatuh_tempo'])
         return redirect(f'/usaha/pembelian_tunai/{id}')
 
     pem = models.pem_tunaim.objects.filter(pk=id_p).first()
@@ -1079,8 +1079,8 @@ def edit_pem_tunai(req, id, id_p):
 
 def edit_pem_kredit(req, id, id_p):
     if req.POST:
-        models.pem_kreditm.objects.filter(pk=id_p).update(jumlah=req.POST['jumlah'], catatan=req.POST['catatan'])
-        return redirect(f'/usaha/pembelian_kredit/{id}')
+        models.pem_kreditm.objects.filter(pk=id_p).update(kuantitas=req.POST['kuantitas'], kas_keluar=req.POST['kas_keluar'], jatuh_tempo=req.POST['jatuh_tempo'])
+        return redirect(f'/usaha/pembelian_tunai/{id}')
 
     pem = models.pem_kreditm.objects.filter(pk=id_p).first()
     return render(req, 'pembelian/edit_pem_kredit.html', {
@@ -1088,37 +1088,37 @@ def edit_pem_kredit(req, id, id_p):
         'id': id,
     })
 
-def edit_pem_lain(req, id, id_p):
-    if req.POST:
-        models.pem_lainm.objects.filter(pk=id_p).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
-        return redirect(f'/usaha/pembelian_lain/{id}')
+# def edit_pem_lain(req, id, id_p):
+#     if req.POST:
+#         models.pem_lainm.objects.filter(pk=id_p).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
+#         return redirect(f'/usaha/pembelian_lain/{id}')
 
-    pem = models.pem_lainm.objects.filter(pk=id_p).first()
-    print(pem)
-    return render(req, 'pembelian/edit_pem_lain.html', {
-        'd': pem,
-        'id': id,
-    })
+#     pem = models.pem_lainm.objects.filter(pk=id_p).first()
+#     print(pem)
+#     return render(req, 'pembelian/edit_pem_lain.html', {
+#         'd': pem,
+#         'id': id,
+#     })
 
-def edit_pembayaran_biaya(req, id, id_p):
-    if req.POST:
-        models.pembayaran_biayam.objects.filter(pk=id_p).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
-        return redirect(f'/usaha/pembayaran_biaya/{id}')
+# def edit_pembayaran_biaya(req, id, id_p):
+#     if req.POST:
+#         models.pembayaran_biayam.objects.filter(pk=id_p).update(dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
+#         return redirect(f'/usaha/pembayaran_biaya/{id}')
 
-    pem = models.pembayaran_biayam.objects.filter(pk=id).first()
-    return render(req, 'uangkeluar/edit_pembayaran_biaya.html', {
-        'data': pem,
-    })
+#     pem = models.pembayaran_biayam.objects.filter(pk=id).first()
+#     return render(req, 'uangkeluar/edit_pembayaran_biaya.html', {
+#         'data': pem,
+#     })
 
-def edit_pembayaran_lain(req, id, id_p):
-    if req.POST:
-        models.pembayaran_lainm.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
-        return redirect(f'/usaha/pembayaran_lain/{id}')
+# def edit_pembayaran_lain(req, id, id_p):
+#     if req.POST:
+#         models.pembayaran_lainm.objects.filter(pk=id_p).update(keterangan=req.POST['keterangan'], dibayar=req.POST['dibayar'], catatan=req.POST['catatan'])
+#         return redirect(f'/usaha/pembayaran_lain/{id}')
 
-    pem = models.pembayaran_lainm.objects.filter(pk=id).first()
-    return render(req, 'uangkeluar/edit_pembayaran_lain.html', {
-        'data': pem,
-    })
+#     pem = models.pembayaran_lainm.objects.filter(pk=id).first()
+#     return render(req, 'uangkeluar/edit_pembayaran_lain.html', {
+#         'data': pem,
+#     })
 
 def edit_barang(req, id, id_p):
     if req.POST:
@@ -1127,7 +1127,8 @@ def edit_barang(req, id, id_p):
 
     pem = models.barangm.objects.filter(pk=id).first()
     return render(req, 'keperluan/edit_barang.html', {
-        'data': pem,
+        'd': pem,
+        'id': id,
     })
 
 def edit_piutang(req, id, id_p):
