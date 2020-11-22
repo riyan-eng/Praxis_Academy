@@ -10,8 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CATATAN KEUANGAN</title>
-  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+  <title>CeKa id - Dashboard</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
   
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -156,7 +156,7 @@
                 <span class="badge badge-danger badge-counter">{{total_due}}</span>
               </a>
               <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in overflow-auto" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Notifikasi
                 </h6>
@@ -220,7 +220,7 @@
                   </div>
                 </a>
                 {% endfor %}
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a> -->
               </div>
             </li>
 
@@ -239,7 +239,7 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profil
                 </a>
@@ -251,7 +251,7 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Aktivitas
                 </a>
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" href="/account/logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Keluar

@@ -11,7 +11,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - Pembelian</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +45,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CATATAN KEUANGAN</div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
       </a>
 
       <!-- Divider -->
@@ -159,7 +160,7 @@
               <br>
               Pembelian
               <div >
-                <input type="number" name="pembelian" value="{{d.pembelian}}" class="form-control">
+                <input type="number" name="pembelian" value="{{d.pembelian}}" id="tampil-beli" class="form-control">
               </div>
               <br>
               Jatuh tempo
@@ -169,7 +170,7 @@
               <br>
               Kas keluar
               <div >
-                <input type="number" name="kas_keluar" value="{{d.kas_keluar}}" class="form-control">
+                <input type="number" name="kas_keluar" value="{{d.kas_keluar}}" id="tampil-keluar" class="form-control">
               </div>
               <br>
               
@@ -180,9 +181,13 @@
          src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js">
          </script>
          <script>
-         
+          var jumlah = "{{d.pembelian}}"
+          const beli = jumlah.replace(".", "")
+          $('#tampil-beli').val(beli);
 
-
+          var jumlah1 = "{{d.kas_keluar}}"
+          const keluar = jumlah1.replace(".", "")
+          $('#tampil-keluar').val(keluar);
        </script>
        
   <!-- Bootstrap core JavaScript-->

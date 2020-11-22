@@ -11,7 +11,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - Penjualan</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,7 +45,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CATATAN KEUANGAN</div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
       </a>
 
       <!-- Divider -->
@@ -169,7 +170,7 @@
               <br>
               Kas masuk
               <div >
-                <input type="number" name="kas_masuk" value="{{d.kas_masuk}}" class="form-control">
+                <input type="number" name="kas_masuk" value="{{d.kas_masuk}}" id="tampil-kas" class="form-control">
               </div>
               <br>
               <button class="btn btn-primary btn-xs">Perbarui</button>
@@ -179,10 +180,10 @@
          src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js">
          </script>
          <script>
-         
-
-
-       </script>
+            var jumlah1 = "{{d.kas_masuk}}"
+            const masuk = jumlah1.replace(".", "")
+            $('#tampil-kas').val(masuk);
+         </script>
        
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

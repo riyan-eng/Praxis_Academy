@@ -10,7 +10,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CK - Penjualan Tunai</title>
+  <title>CeKa id - Penerimaan piutang</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/logo2.png' %}"/>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,7 +40,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-clipboard-list"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CATATAN KEUANGAN</div>
+        <div class="sidebar-brand-text mx-3">Ceka id</div>
       </a>
 
       <!-- Divider -->
@@ -251,6 +252,12 @@
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col">Piutang</div>
                     <div class="col-lg-9 col-md-9 col">: Rp {{d.piutang1}}</div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3 col">Jatuh tempo</div>
+                    <div class="col-lg-9 col-md-9 col">: {{d.jatuh_tempo}}</div>
                   </div>
                 </li>
                 <li class="center list-group-item">
