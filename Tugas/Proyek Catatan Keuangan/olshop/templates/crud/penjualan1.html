@@ -136,7 +136,7 @@
           </ul>
         </nav>
           <div class="container">
-          <div class="container"><br>
+          <div class="container">
             <h1 style="text-align: center;">Transaksi</h1>
             
         
@@ -146,6 +146,7 @@
 
                     {% csrf_token %}
                     Barang
+                    <br>
                     <select class="form-control select2" name="barang" onchange="showHarga(this)">
                       <option >Barang</option>
                       {% for d in data1 %}
@@ -176,8 +177,6 @@
                     <button class="btn btn-primary btn-xs">Tambah</button>
         
                 </form>
-                
-
                 
                 
                 {{ form.media }}

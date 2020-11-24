@@ -40,6 +40,7 @@ urlpatterns = [
 
     #lrk
     path('usaha/lrk/<id>/', views.lrk),
+    path('usaha/notif/<id>/', views.indexnotif),
 
     #crud
     path('usaha/penjualan1/<id>/', views.penjualan1v),

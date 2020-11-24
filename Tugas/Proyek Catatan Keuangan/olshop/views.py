@@ -392,7 +392,6 @@ def halamandepan(req, id):
     jumlah2utang = bayar111 + bayar222 + bayar333
 
     kas_masuk4utang = jumlah1utang + jumlah2utang
-    print(kas_masuk4utang)
 
 
 
@@ -443,6 +442,31 @@ def halamandepan(req, id):
     'saldo_akhir': saldo_akhir,
     'rasio': rasio,
     'maks_keluar': maks_keluar,
+    'data': ush1,
+    'usaha': ush,
+    'due': due,
+    'due1': due1,
+    'due2': due2,
+    'due3': due3,
+    'due4': due4,
+    'total_due': total_due,
+    })
+
+def indexnotif(req, id):
+
+    #usaha
+    ush = models.usaha.objects.filter(pk=id).first()
+    ush1 = models.usaha.objects.filter(owner=req.user)
+
+    due = notif_r(req, id)
+    due1 = notif_r1(req, id)
+    due2 = notif_r2(req, id)
+    due3 = notif_r3(req, id)
+    due4 = notif_r4(req, id)
+    total_due = len(due) + len(due1) + len(due2) + len(due3) + len(due4)
+
+    return render(req, 'keperluan/notif.html', {
+    'id': id,
     'data': ush1,
     'usaha': ush,
     'due': due,
@@ -567,16 +591,13 @@ def utang(req, id):
     })
 
 def pembelian_tunai(req, id):
-    task = models.pem_tunaim.objects.filter(usaha=id)
-    form_input = forms.pem_tunaif()
-    if req.POST:
-        form_input = forms.pem_tunaif(req.POST, usaha=id)
-        if form_input.is_valid():
-            form_input.instance.usaha = usaha
-            form_input.save()
-        return redirect('/pembelian_tunai')
-    pem = models.pem_tunaim.objects.all()
-    pem1 = models.pem_kreditm.objects.all()
+    if req.GET and req.GET["dari"] and req.GET["sampai"]: 
+        pem = models.pem_tunaim.objects.filter(tanggal__range=[req.GET["dari"], req.GET["sampai"]])
+        pem1 = models.pem_kreditm.objects.filter(tanggal__range=[req.GET["dari"], req.GET["sampai"]])
+ 
+    else:
+        pem = models.pem_tunaim.objects.all()
+        pem1 = models.pem_kreditm.objects.all()
 
     pem = pem.filter(usaha=id)
     pem1 = pem1.filter(usaha=id)
@@ -601,7 +622,6 @@ def pembelian_tunai(req, id):
     return render(req, 'pembelian/index10.html', {
         'id': id,
         'data': pem,
-        'data': task,
         'data1': pem1,
         'kas_keluar1': kas_keluar1,
         'kas_keluar2': kas_keluar2,
@@ -609,7 +629,6 @@ def pembelian_tunai(req, id):
         'pembelian2' : pembelian2,
         'utang1': utang1,
         'utang2': utang2,
-        'form': form_input,
     })
 
 
@@ -876,17 +895,17 @@ def pem_tunaiv(req, id):
 def pem_kreditv(req, id):
     usaha = models.usaha.objects.filter(pk=id).first()
     task = models.pem_kreditm.objects.filter(usaha=id)
+    brg = models.barangm.objects.filter(usaha=id)
     form_input = forms.pem_kreditf(usaha=id)
     if req.POST:
-        form_input = forms.pem_kreditf(req.POST, usaha=id)
-        if form_input.is_valid():
-            form_input.instance.usaha = usaha
-            form_input.save()
+        brg_input = models.barangm.objects.filter(pk=req.POST['barang']).first()
+        models.pem_kreditm.objects.create(usaha=usaha, barang=brg_input, kuantitas=req.POST['kuantitas'], jatuh_tempo=req.POST['jatuh_tempo'], kas_keluar=req.POST['kas_keluar'])
         return redirect(f'/usaha/pembelian_tunai/{id}')
     return render(req, 'crud/pem_kredit.html', {
         'id': id,
         'form': form_input,
         'data': task,
+        'data1': brg,
     })
 
 def pem_lainv(req, id):
